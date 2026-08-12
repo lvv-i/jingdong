@@ -19,10 +19,10 @@
 | T2 | 数据字典 v1.0 | ✅ | `docs/phase1/member-a/deliverables/02-数据字典v1.0.md`（13 张表） | 2026-08-12 |
 | T3 | 错误码分段表 | ✅ | `docs/phase1/member-a/deliverables/03-错误码分段表.md`（7 段 + 公共码） | 2026-08-12 |
 | T4 | JWT 鉴权与 RBAC 方案 | ✅ | `docs/phase1/member-a/deliverables/04-JWT鉴权与RBAC方案.md`（三角色 + 拦截矩阵） | 2026-08-12 |
-| T5 | 接口清单 v1.0 | ⬜ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md` | - |
+| T5 | 接口清单 v1.0 | 🟦 | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v0.5 骨架版 62 接口，待 B/C/D 需求合并） | 骨架 2026-08-12 |
 | T6 | 需求冻结定稿、签字与交接 | ⬜ | `docs/phase1/member-a/deliverables/06-需求冻结定稿文档.md` | - |
 
-**A 完成率：3 / 6 完成（50%）｜ T1 草案待 B/C/D 签字**
+**A 完成率：3 / 6 完成（50%）｜ T1 待签字 ｜ T5 骨架版已发布待合并**
 
 ---
 
