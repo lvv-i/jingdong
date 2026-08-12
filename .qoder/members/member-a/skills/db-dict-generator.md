@@ -2,7 +2,7 @@
 
 ## Description
 
-指导成员 A 生成/审查数据字典 v1.0：核心 11 张表的完整字段清单。输出是第二阶段建表 SQL 的唯一依据，也是 B/C/D 联调的字段口径。
+指导成员 A 生成/审查数据字典 v1.0：核心 13 张表的完整字段清单。输出是第二阶段建表 SQL 的唯一依据，也是 B/C/D 联调的字段口径。
 
 ## When to Use
 
@@ -10,9 +10,9 @@
 - 审查他人提交的建表 SQL 或字段变更请求
 - 第二阶段生成 CREATE TABLE 脚本
 
-## 覆盖表清单（11 张）
+## 覆盖表清单（13 张）
 
-users、merchant_shops、categories、products、cart_items、orders、order_items、refund_requests、addresses、notices、audit_logs
+users、merchant_shops、categories、products、product_images、cart_items、orders、order_items、refund_requests、payment_records、addresses、notices、audit_logs
 
 ## 输出模板
 
