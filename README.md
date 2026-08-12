@@ -24,6 +24,24 @@
 - 后台端：Vue 3 + Element Plus
 - 移动端：uni-app（App + 微信小程序）
 
+## 进度跟踪（全员必读）
+
+项目进度由 4 个文件统一记录，**任何成员任务推进后都必须更新对应文件并随任务一起提交**，让全员随时能看到最新状态：
+
+| 文件 | 作用 | 谁更新 |
+|---|---|---|
+| [PROJECT_STATUS.md](./PROJECT_STATUS.md) | 项目状态总览（当前阶段、成员摘要、里程碑、风险） | 任何成员 |
+| [docs/progress/member-status.md](./docs/progress/member-status.md) | 各成员任务级完成状态 | 任务责任人 |
+| [docs/progress/roadmap.md](./docs/progress/roadmap.md) | 五阶段项目进度与里程碑 | 阶段负责人 |
+| [docs/progress/backlog.md](./docs/progress/backlog.md) | 待实现进度清单（接下来做什么） | 任何成员 |
+
+**维护要求：**
+
+1. 任务开始/完成/阻塞时，立即更新对应文件（状态图标：⬜ 未开始 ｜ 🟦 进行中 ｜ ✅ 已完成 ｜ 🚫 阻塞）。
+2. 更新明细文件（member-status / roadmap / backlog）时，必须同步更新 `PROJECT_STATUS.md` 总览。
+3. 进度变更与任务交付物在同一次提交中推送到 `develop`。
+4. 各成员使用 AI 协作时，应让 AI 在每次任务推进后自动完成上述更新与提交。
+
 ## 协作规范
 
 1. 使用 `main` 作为稳定分支，`develop` 作为日常集成分支。
