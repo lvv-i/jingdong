@@ -1,0 +1,11 @@
+schema_version: 1
+module_path: ""
+title: 项目根目录与协作规范
+scope:
+    - .gitignore
+    - README.md
+    - 京东风格电商平台项目启动指导书_修订版.docx
+    - 电商项目团队分工与公共配置方案.docx
+source_files: []
+depends_on: []
+related_to: []
