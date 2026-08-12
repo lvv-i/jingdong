@@ -15,14 +15,14 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| T1 | 状态机枚举表（全员签字版） | ⬜ | `docs/phase1/member-a/deliverables/01-状态机枚举表.md` | - |
+| T1 | 状态机枚举表（全员签字版） | 🟦 | `docs/phase1/member-a/deliverables/01-状态机枚举表.md`（v0.9 草案，待 B/C/D 签字） | 草案 2026-08-12 |
 | T2 | 数据字典 v1.0 | ⬜ | `docs/phase1/member-a/deliverables/02-数据字典v1.0.md` | - |
 | T3 | 错误码分段表 | ⬜ | `docs/phase1/member-a/deliverables/03-错误码分段表.md` | - |
 | T4 | JWT 鉴权与 RBAC 方案 | ⬜ | `docs/phase1/member-a/deliverables/04-JWT鉴权与RBAC方案.md` | - |
 | T5 | 接口清单 v1.0 | ⬜ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md` | - |
 | T6 | 需求冻结定稿、签字与交接 | ⬜ | `docs/phase1/member-a/deliverables/06-需求冻结定稿文档.md` | - |
 
-**A 完成率：0 / 6（0%）**
+**A 完成率：0 / 6 完成（0%）｜ T1 草案已发布，待 B/C/D 签字**
 
 ---
 

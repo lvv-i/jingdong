@@ -73,6 +73,7 @@ REFUNDING --用户撤销--> CLOSED
 ```
 PENDING_AUDIT --管理员通过--> APPROVED
 PENDING_AUDIT --管理员驳回--> REJECTED
+REJECTED --商家修改资料后重新提交--> PENDING_AUDIT
 ```
 
 ### Rules
@@ -86,21 +87,25 @@ PENDING_AUDIT --管理员驳回--> REJECTED
 ### States
 
 - `DRAFT` - 草稿
-- `PENDING_AUDIT` - 待审核（可选）
+- `PENDING_ON_SALE` - 待上架（商家提交后待管理员审核）
 - `ON_SALE` - 已上架
 - `OFF_SALE` - 已下架
 
 ### Allowed Transitions
 
 ```
-DRAFT --商家上架--> ON_SALE
-ON_SALE --商家下架--> OFF_SALE
-OFF_SALE --商家上架--> ON_SALE
+DRAFT --商家提交上架申请--> PENDING_ON_SALE
+PENDING_ON_SALE --管理员审核通过--> ON_SALE
+PENDING_ON_SALE --管理员审核驳回--> DRAFT
+ON_SALE --商家下架/管理员强制下架--> OFF_SALE
+OFF_SALE --商家修改后重新提交--> PENDING_ON_SALE
 ```
 
 ### Rules
 
 - Only `ON_SALE` products are visible on user web/app/mini-program.
+- Re-listing from `OFF_SALE` must go through review again.
+- Admin approval/rejection and forced take-down must include a reason saved in `audit_reason` and write `audit_log`.
 - Product state transitions do not affect historical order data.
 
 ## Implementation Rules
