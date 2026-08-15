@@ -37,4 +37,4 @@
 | member-a（后端核心） | ✅ 已创建 | 3 skills + 2 rules + 1 mcps，覆盖状态机/数据字典/接口清单/JWT/分层/MCP用法 |
 | member-b（用户网页端） | ✅ 已创建 | 2 skills + 1 rule + 1 mcps，覆盖页面规格/接口对接/工程结构/browser-use 验证（第四阶段 W1-W5 使用） |
 | member-c（后台端） | ✅ 已创建 | 2 skills + 1 rule + 1 mcps，覆盖后台页面开发/契约核对/前端规范/browser-use 验证（2026-08-15） |
-| member-d（App/小程序+测试/文档） | ⏳ 待创建 | D 启动第一阶段时自建 |
+| member-d（App/小程序+测试/文档） | ✅ 已创建 | 3 skills + 2 rules + 1 mcps，覆盖 uni-app 页面规格/接口对接/测试基线与 AI 交互记录/工程结构/验收检查单（2026-08-15） |
