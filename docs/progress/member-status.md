@@ -72,6 +72,19 @@
 
 **C 完成率：2 / 2（100%）✅**
 
+第四阶段任务（工作区：`docs/phase4/member-c/`、工程 `admin-web/`）：
+
+| 任务 | 内容 | 状态 | 交付物 | 完成日期 |
+|---|---|---|---|---|
+| C1 | 工程初始化（Vite + Vue3 + Element Plus + 路由/状态/请求基建） | ⬜ | `admin-web/` 工程骨架 | - |
+| C2 | 登录与角色化布局（登录页/路由守卫/动态菜单/Token 拦截） | ⬜ | `admin-web/src/` 基建 | - |
+| C3 | 商家后台 6 页（仪表盘/商品/库存/订单/售后/店铺，M-001~015） | ⬜ | `admin-web/src/views/merchant/` 6 页 | - |
+| C4 | 管理员后台 7 页（审核/类目/巡检/商家/用户/争议/日志统计，A-001~019） | ⬜ | `admin-web/src/views/admin/` 7 页 | - |
+| C5 | 状态机与权限联动（按钮显隐/越权提示/三方协作链路自测） | ⬜ | `deliverables/C5-状态按钮映射表.md` 等 | - |
+| C6 | 联调与验收（契约核对/空状态/演示脚本/AI 交互记录归档） | ⬜ | `deliverables/C6-*.md` | - |
+
+**C 第四阶段完成率：0 / 6。任务书见 `docs/phase4/member-c/tasks/`（C1-C6，2026-08-15 发布，工作区与专属配置已就绪）**
+
 ---
 
 ## 成员 D（App / 小程序 + 测试文档）
@@ -85,6 +98,18 @@
 | D3 | 汇总需求冻结文档 | ✅ | `docs/phase1/member-d/deliverables/D-03-需求冻结文档v1.0.md`（全员签字） | 2026-08-12 |
 
 **D 完成率：3 / 3（100%）✅**
+
+第四阶段任务（工作区：`docs/phase4/member-d/`）：
+
+| 任务 | 内容 | 状态 | 交付物 | 完成日期 |
+|---|---|---|---|---|
+| X1 | 工程初始化 + 登录注册（P-001/P-002/P-007/P-008） | ⬜ | `docs/phase4/member-d/deliverables/X-01-工程初始化.md` | - |
+| X2 | 商品浏览链路（P-003~P-006） | ⬜ | `docs/phase4/member-d/deliverables/X-02-商品浏览链路.md` | - |
+| X3 | 购物与下单链路（U-003/U-008~U-016） | ⬜ | `docs/phase4/member-d/deliverables/X-03-购物与下单链路.md` | - |
+| X4 | 订单与售后链路（U-013~U-025） | ⬜ | `docs/phase4/member-d/deliverables/X-04-订单与售后链路.md` | - |
+| X5 | 我的/地址 + 端适配 + 全链路自测（U-001~U-007） | ⬜ | `docs/phase4/member-d/deliverables/X-05-端适配与自测.md` | - |
+
+**D 第四阶段：工作区与任务书已建（2026-08-15），X1-X5 待启动；任务书见 `docs/phase4/member-d/tasks/X1-X5-移动端开发任务书.md`**
 
 ---
 
