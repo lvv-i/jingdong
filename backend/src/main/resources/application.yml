@@ -1,0 +1,58 @@
+# =============================================================
+# 京东风格电商平台 后端配置
+# 依据：docs/phase1/member-a/deliverables/04-JWT鉴权与RBAC方案.md + T5 接口清单
+# 演示环境默认值；敏感项可用环境变量覆盖（JWT_SECRET 等）
+# =============================================================
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: jd-shop
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jd_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.example.shop.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      # 逻辑删除（软删除）统一配置：deleted_flag 0未删除 1已删除
+      logic-delete-field: deletedFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT（T4 方案：24 小时有效期；claims: sub/role/shopId/iat/exp）
+jwt:
+  # 演示密钥：长度须 ≥32 字节（HS256）；生产用环境变量 JWT_SECRET 覆盖
+  secret: ${JWT_SECRET:jd-shop-demo-secret-key-2026-08-12-member-a}
+  expire-hours: 24
+
+# 订单相关业务配置
+order:
+  # 支付超时自动取消时长（分钟），T1 订单状态机：默认 30 分钟；演示可调小
+  pay-timeout-minutes: 30
+
+# 应用级业务配置
+app:
+  # 分页上限（T5 通用约定：pageSize max 100）
+  page-max-size: 100
+  # 短信验证码 demo 模式固定码（T5 P-007/P-008）
+  sms-code-fixed: "123456"
+  # 验证码有效期（秒）
+  sms-code-ttl-seconds: 300
+  # 收货地址数量上限（T3 错误码 2006）
+  address-max-count: 20
