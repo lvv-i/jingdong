@@ -15,14 +15,14 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| T1 | 状态机枚举表（全员签字版） | 🟦 | `docs/phase1/member-a/deliverables/01-状态机枚举表.md`（v0.9 草案，待 B/C/D 签字） | 草案 2026-08-12 |
-| T2 | 数据字典 v1.0 | ✅ | `docs/phase1/member-a/deliverables/02-数据字典v1.0.md`（13 张表） | 2026-08-12 |
+| T1 | 状态机枚举表（全员签字版） | ✅ | `docs/phase1/member-a/deliverables/01-状态机枚举表.md`（v1.0，B/C/D 已签字） | 2026-08-12 |
+| T2 | 数据字典 v1.0 | ✅ | `docs/phase1/member-a/deliverables/02-数据字典v1.0.md`（13 张表 + 评价字段扩展） | 2026-08-12 |
 | T3 | 错误码分段表 | ✅ | `docs/phase1/member-a/deliverables/03-错误码分段表.md`（7 段 + 公共码） | 2026-08-12 |
 | T4 | JWT 鉴权与 RBAC 方案 | ✅ | `docs/phase1/member-a/deliverables/04-JWT鉴权与RBAC方案.md`（三角色 + 拦截矩阵） | 2026-08-12 |
-| T5 | 接口清单 v1.0 | 🟦 | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v0.5 骨架版 62 接口，待 B/C/D 需求合并） | 骨架 2026-08-12 |
-| T6 | 需求冻结定稿、签字与交接 | ⬜ | `docs/phase1/member-a/deliverables/06-需求冻结定稿文档.md` | - |
+| T5 | 接口清单 v1.0 | ✅ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v1.0 定稿 67 接口，已合并 B/C/D 需求） | 2026-08-12 |
+| T6 | 需求冻结定稿、签字与交接 | ✅ | `docs/phase1/member-a/deliverables/06-需求冻结A部分定稿.md` | 2026-08-12 |
 
-**A 完成率：3 / 6 完成（50%）｜ T1 待签字 ｜ T5 骨架版已发布待合并**
+**A 完成率：6 / 6（100%）✅ 第一阶段全部完成**
 
 ---
 
@@ -32,10 +32,10 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| B1 | 用户端页面清单 | ⬜ | `docs/phase1/member-b/` | - |
-| B2 | 用户端接口需求 | ⬜ | `docs/phase1/member-b/` | - |
+| B1 | 用户端页面清单 | ✅ | `docs/phase1/member-b/deliverables/B-01-用户端页面清单.md`（13 页） | 2026-08-12 |
+| B2 | 用户端接口需求 | ✅ | `docs/phase1/member-b/deliverables/B-02-用户端接口需求清单.md`（4 项增补） | 2026-08-12 |
 
-**B 完成率：0 / 2（0%）**
+**B 完成率：2 / 2（100%）✅**
 
 ---
 
@@ -45,10 +45,10 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| C1 | 后台页面清单 | ⬜ | `docs/phase1/member-c/` | - |
-| C2 | 权限矩阵与接口需求 | ⬜ | `docs/phase1/member-c/` | - |
+| C1 | 后台页面清单 | ✅ | `docs/phase1/member-c/deliverables/C-01-后台页面清单.md`（6+7 页） | 2026-08-12 |
+| C2 | 权限矩阵与接口需求 | ✅ | `docs/phase1/member-c/deliverables/C-02-权限矩阵.md` + `C-03-后台接口需求清单.md` | 2026-08-12 |
 
-**C 完成率：0 / 2（0%）**
+**C 完成率：2 / 2（100%）✅**
 
 ---
 
@@ -58,11 +58,11 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| D1 | 移动端页面清单 | ⬜ | `docs/phase1/member-d/` | - |
-| D2 | 测试基线文档 | ⬜ | `docs/phase1/member-d/` | - |
-| D3 | 汇总需求冻结文档 | ⬜ | `docs/phase1/member-d/` | - |
+| D1 | 移动端页面清单 | ✅ | `docs/phase1/member-d/deliverables/D-01-移动端页面清单.md`（9 页） | 2026-08-12 |
+| D2 | 测试基线文档 | ✅ | `docs/phase1/member-d/deliverables/D-02-测试账号与演示数据方案.md` | 2026-08-12 |
+| D3 | 汇总需求冻结文档 | ✅ | `docs/phase1/member-d/deliverables/D-03-需求冻结文档v1.0.md`（全员签字） | 2026-08-12 |
 
-**D 完成率：0 / 3（0%）**
+**D 完成率：3 / 3（100%）✅**
 
 ---
 
