@@ -9,9 +9,15 @@
           <span class="brand-name">京选商城</span>
         </router-link>
 
-        <div class="search-box" @click="goSearch">
+        <div class="search-box">
           <el-icon><Search /></el-icon>
-          <span>搜索商品</span>
+          <input
+            v-model="searchKeyword"
+            class="search-input"
+            placeholder="搜索商品"
+            @keyup.enter="goSearch"
+          />
+          <el-button class="search-btn" size="small" @click="goSearch">搜索</el-button>
         </div>
 
         <nav class="top-nav">
@@ -46,14 +52,17 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
 const userStore = useUserStore()
+const searchKeyword = ref('')
 
 function goSearch() {
-  router.push('/search')
+  const kw = searchKeyword.value.trim()
+  router.push(kw ? { path: '/search', query: { keyword: kw } } : '/search')
 }
 
 function handleLogout() {
@@ -109,12 +118,25 @@ function handleLogout() {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 14px;
+  padding: 0 6px 0 14px;
   border: 2px solid #e60012;
   border-radius: 18px;
   color: #909399;
   font-size: 14px;
-  cursor: pointer;
+}
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+}
+.search-btn {
+  border: none;
+  background: #e60012;
+  color: #fff;
+  border-radius: 14px;
 }
 .top-nav {
   display: flex;

@@ -55,9 +55,11 @@ request.interceptors.response.use(
     return Promise.reject(err)
   },
   (error) => {
-    // 网络层错误（后端未启动/超时/500 等）
+    // 网络层错误（后端未启动/超时/500 等）；silent=true 时不弹全局 toast（页面自处理）
     const msg = error?.response?.data?.message || error.message || '网络异常，请稍后重试'
-    ElMessage.error(msg)
+    if (!error?.config?.silent) {
+      ElMessage.error(msg)
+    }
     return Promise.reject(error)
   }
 )
