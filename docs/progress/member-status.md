@@ -76,14 +76,14 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| C1 | 工程初始化（Vite + Vue3 + Element Plus + 路由/状态/请求基建） | ⬜ | `admin-web/` 工程骨架 | - |
-| C2 | 登录与角色化布局（登录页/路由守卫/动态菜单/Token 拦截） | ⬜ | `admin-web/src/` 基建 | - |
+| C1 | 工程初始化（Vite + Vue3 + Element Plus + 路由/状态/请求基建） | ✅ | `admin-web/`（Vite 5.4 + Vue 3.5 + EP 2.8，build 通过） | 2026-08-15 |
+| C2 | 登录与角色化布局（登录页/路由守卫/动态菜单/Token 拦截） | ✅ | `admin-web/src/`（P-002 登录页 + 守卫 + 13 页骨架 + T5 全量接口封装，browser-use 实测） | 2026-08-15 |
 | C3 | 商家后台 6 页（仪表盘/商品/库存/订单/售后/店铺，M-001~015） | ⬜ | `admin-web/src/views/merchant/` 6 页 | - |
 | C4 | 管理员后台 7 页（审核/类目/巡检/商家/用户/争议/日志统计，A-001~019） | ⬜ | `admin-web/src/views/admin/` 7 页 | - |
 | C5 | 状态机与权限联动（按钮显隐/越权提示/三方协作链路自测） | ⬜ | `deliverables/C5-状态按钮映射表.md` 等 | - |
 | C6 | 联调与验收（契约核对/空状态/演示脚本/AI 交互记录归档） | ⬜ | `deliverables/C6-*.md` | - |
 
-**C 第四阶段完成率：0 / 6。任务书见 `docs/phase4/member-c/tasks/`（C1-C6，2026-08-15 发布，工作区与专属配置已就绪）**
+**C 第四阶段完成率：2 / 6。任务书见 `docs/phase4/member-c/tasks/`（2026-08-15 C1/C2 完成：admin-web 可运行、路由守卫 browser-use 实测拦截、登录态 localStorage 持久化；真实 token 联调待 M3）**
 
 ---
 
