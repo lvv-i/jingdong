@@ -103,13 +103,13 @@
 
 | 任务 | 内容 | 状态 | 交付物 | 完成日期 |
 |---|---|---|---|---|
-| X1 | 工程初始化 + 登录注册（P-001/P-002/P-007/P-008） | ⬜ | `docs/phase4/member-d/deliverables/X-01-工程初始化.md` | - |
+| X1 | 工程初始化 + 登录注册（P-001/P-002/P-007/P-008） | ✅ | `docs/phase4/member-d/deliverables/X-01-工程初始化.md`（mobile-app uni-app CLI 工程 + 双登录 + 守卫，browser-use 实测） | 2026-08-15 |
 | X2 | 商品浏览链路（P-003~P-006） | ⬜ | `docs/phase4/member-d/deliverables/X-02-商品浏览链路.md` | - |
 | X3 | 购物与下单链路（U-003/U-008~U-016） | ⬜ | `docs/phase4/member-d/deliverables/X-03-购物与下单链路.md` | - |
 | X4 | 订单与售后链路（U-013~U-025） | ⬜ | `docs/phase4/member-d/deliverables/X-04-订单与售后链路.md` | - |
 | X5 | 我的/地址 + 端适配 + 全链路自测（U-001~U-007） | ⬜ | `docs/phase4/member-d/deliverables/X-05-端适配与自测.md` | - |
 
-**D 第四阶段：工作区与任务书已建（2026-08-15），X1-X5 待启动；任务书见 `docs/phase4/member-d/tasks/X1-X5-移动端开发任务书.md`**
+**D 第四阶段完成率：1 / 5。任务书见 `docs/phase4/member-d/tasks/X1-X5-移动端开发任务书.md`（2026-08-15 X1 完成：mobile-app 工程 + P-001/002/007/008 登录注册 + tabBar 骨架 + 未登录守卫，browser-use 实测刷新登录态不丢/购物车拦截跳登录；真实 token 联调待 M3）**
 
 ---
 
