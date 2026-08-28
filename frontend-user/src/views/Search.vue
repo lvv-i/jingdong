@@ -51,7 +51,7 @@
     <EmptyState
       v-else
       title="没有找到相关商品"
-      desc="换个关键词或类目试试"
+      description="换个关键词或类目试试"
       class="empty-block"
     />
 

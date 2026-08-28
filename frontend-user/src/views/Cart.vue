@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <EmptyState v-else title="购物车还是空的" desc="去挑选喜欢的商品吧">
+    <EmptyState v-else title="购物车还是空的" description="去挑选喜欢的商品吧">
       <el-button type="danger" @click="$router.push('/')">去逛逛</el-button>
     </EmptyState>
   </div>

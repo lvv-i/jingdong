@@ -1,6 +1,5 @@
 <template>
-  <!-- B-P08 订单详情（W3 简版：U-014 展示 + U-015 模拟支付 + U-016 取消；
-       W4 扩展：SHIPPED 确认收货 U-017、COMPLETED 评价入口 U-024） -->
+  <!-- B-P08 订单详情（U-014 展示 + U-015 支付 + U-016 取消 + U-017 确认收货 + U-024 评价入口） -->
   <div class="order-detail-page">
     <!-- 4001 订单不存在/无权访问 -->
     <div v-if="notFound" class="error-block">
@@ -34,6 +33,21 @@
           <span class="odi-title">{{ it.titleSnapshot }}</span>
           <span class="odi-price">¥{{ formatPrice(it.priceSnapshot) }} × {{ it.quantity }}</span>
           <span class="odi-subtotal">¥{{ formatPrice(it.totalPrice) }}</span>
+          <!-- U-024 评价入口：仅 COMPLETED 且该明细未评价（rating/reviewedAt 后端驱动） -->
+          <el-button
+            v-if="order.status === 'COMPLETED' && !it.reviewedAt"
+            type="primary"
+            link
+            @click="$router.push(`/orders/${order.id}/review?itemId=${it.id}`)"
+          >
+            评价
+          </el-button>
+          <el-rate
+            v-else-if="it.reviewedAt"
+            :model-value="it.rating"
+            disabled
+            size="small"
+          />
         </div>
         <div class="od-summary">
           <span>商品总额：¥{{ formatPrice(order.totalAmount) }}</span>
@@ -67,8 +81,23 @@
           <el-tag type="primary" size="large">已支付，等待商家发货</el-tag>
         </template>
         <template v-else-if="order.status === 'SHIPPED'">
-          <el-tag type="info" size="large">已发货，确认收货功能将在 W4 开放</el-tag>
+          <el-button type="success" size="large" :loading="confirming" @click="handleConfirm">
+            确认收货
+          </el-button>
         </template>
+        <template v-else-if="order.status === 'COMPLETED'">
+          <el-tag type="success" size="large">订单已完成</el-tag>
+        </template>
+        <!-- U-018 申请退款入口（可退款态：PAID/SHIPPED/COMPLETED） -->
+        <el-button
+          v-if="['PAID', 'SHIPPED', 'COMPLETED'].includes(order.status)"
+          size="large"
+          type="warning"
+          plain
+          @click="$router.push(`/refunds?orderId=${order.id}`)"
+        >
+          申请退款
+        </el-button>
         <el-button size="large" plain @click="$router.push('/orders')">返回订单中心</el-button>
       </div>
     </template>
@@ -79,7 +108,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { getOrderDetail, payOrder, cancelOrder } from '@/api/order'
+import { getOrderDetail, payOrder, cancelOrder, confirmReceipt } from '@/api/order'
 import { orderStatus } from '@/utils/status-map'
 import { formatPrice, formatDateTime } from '@/utils/format'
 
@@ -90,6 +119,7 @@ const order = ref({})
 const notFound = ref(false)
 const paying = ref(false)
 const cancelling = ref(false)
+const confirming = ref(false)
 
 const statusInfo = computed(() => orderStatus(order.value.status))
 const statusTip = computed(() => {
@@ -160,6 +190,32 @@ async function handleCancel() {
     loadDetail()
   } finally {
     cancelling.value = false
+  }
+}
+
+/** U-017 确认收货：SHIPPED → COMPLETED（4002 状态不允许 → 提示 + 刷新） */
+async function handleConfirm() {
+  try {
+    await ElMessageBox.confirm('确认已收到商品吗？', '确认收货', {
+      type: 'info',
+      confirmButtonText: '确认收货',
+      cancelButtonText: '再想想'
+    })
+  } catch {
+    return
+  }
+  confirming.value = true
+  try {
+    await confirmReceipt(orderId.value)
+    ElMessage.success('已确认收货，订单完成')
+    loadDetail()
+  } catch (err) {
+    if (err.code === 4002) {
+      ElMessage.warning(err.message)
+      loadDetail()
+    }
+  } finally {
+    confirming.value = false
   }
 }
 

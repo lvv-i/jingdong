@@ -109,7 +109,7 @@
             />
           </div>
         </template>
-        <EmptyState v-else title="暂无评价" desc="购买后评价，分享你的体验" />
+        <EmptyState v-else title="暂无评价" description="购买后评价，分享你的体验" />
       </div>
     </template>
   </div>

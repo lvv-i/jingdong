@@ -38,3 +38,14 @@ export const ORDER_TABS = [
   { label: '已完成', value: 'COMPLETED' },
   { label: '已取消', value: 'CANCELLED' }
 ]
+
+/** 售后中心 Tab（T1 退款六态 + 全部） */
+export const REFUND_TABS = [
+  { label: '全部', value: '' },
+  { label: '退款中', value: 'REFUNDING' },
+  { label: '商家已同意', value: 'MERCHANT_AGREED' },
+  { label: '商家已拒绝', value: 'MERCHANT_REJECTED' },
+  { label: '平台介入中', value: 'ADMIN_INTERVENED' },
+  { label: '已退款', value: 'REFUNDED' },
+  { label: '已关闭', value: 'CLOSED' }
+]

@@ -23,7 +23,7 @@
           <div class="addr-detail">{{ addr.province }} {{ addr.city }} {{ addr.district }} {{ addr.detail }}</div>
         </div>
       </div>
-      <EmptyState v-else title="还没有收货地址" desc="请先到地址管理添加收货地址">
+      <EmptyState v-else title="还没有收货地址" description="请先到地址管理添加收货地址">
         <el-button type="primary" @click="$router.push('/addresses')">去添加</el-button>
       </EmptyState>
     </section>
@@ -45,7 +45,7 @@
           <span class="summary-total">合计：<b>¥{{ formatPrice(totalAmount) }}</b></span>
         </div>
       </template>
-      <EmptyState v-else title="没有待结算的商品" desc="请回购物车勾选商品后结算">
+      <EmptyState v-else title="没有待结算的商品" description="请回购物车勾选商品后结算">
         <el-button type="danger" @click="$router.push('/cart')">回购物车</el-button>
       </EmptyState>
     </section>

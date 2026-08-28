@@ -50,7 +50,7 @@
           <div v-else-if="products.length" class="grid">
             <ProductCard v-for="p in products" :key="p.id" :product="p" />
           </div>
-          <EmptyState v-else title="暂无商品" desc="商品即将上架，敬请期待" />
+          <EmptyState v-else title="暂无商品" description="商品即将上架，敬请期待" />
         </div>
       </section>
     </div>
