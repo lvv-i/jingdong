@@ -28,6 +28,8 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+.tmp_*/
+w3-shot.png
 
 # Office lock files
 ~$*.docx
