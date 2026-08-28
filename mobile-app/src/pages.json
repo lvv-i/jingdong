@@ -29,6 +29,12 @@
 			"style": {
 				"navigationBarTitleText": "登录 / 注册"
 			}
+		},
+		{
+			"path": "pages/product/detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
 		}
 	],
 	"tabBar": {

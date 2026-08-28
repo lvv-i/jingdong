@@ -30,11 +30,12 @@ function isWhitelist(url) {
 
 /**
  * 通用请求
- * @param {Object} options { url, method='GET', data, header }
+ * @param {Object} options { url, method='GET', data, header, silent } 
+ *   silent=true：列表/展示类静默降级（无后端时不 toast，页面自行兜底空状态）
  * @returns {Promise<any>} 成功时 resolve data（已解包）
  */
 export function request(options) {
-	const { url, method = "GET", data, header = {} } = options || {};
+	const { url, method = "GET", data, header = {}, silent = false } = options || {};
 	return new Promise((resolve, reject) => {
 		const headers = { "Content-Type": "application/json", ...header };
 		const token = getToken();
@@ -59,25 +60,29 @@ export function request(options) {
 					reject(body);
 					return;
 				}
-				uni.showToast({ title: body.message || "操作失败", icon: "none" });
+				if (!silent) {
+					uni.showToast({ title: body.message || "操作失败", icon: "none" });
+				}
 				reject(body);
 			},
 			fail: (err) => {
-				uni.showToast({ title: "网络异常，请确认后端已启动", icon: "none" });
+				if (!silent) {
+					uni.showToast({ title: "网络异常，请确认后端已启动", icon: "none" });
+				}
 				reject(err);
 			},
 		});
 	});
 }
 
-export const get = (url, params) =>
-	request({ url: buildQuery(url, params), method: "GET" });
+export const get = (url, params, silent) =>
+	request({ url: buildQuery(url, params), method: "GET", silent });
 
-export const post = (url, data) => request({ url, method: "POST", data });
+export const post = (url, data, silent) => request({ url, method: "POST", data, silent });
 
-export const put = (url, data) => request({ url, method: "PUT", data });
+export const put = (url, data, silent) => request({ url, method: "PUT", data, silent });
 
-export const del = (url) => request({ url, method: "DELETE" });
+export const del = (url, silent) => request({ url, method: "DELETE", silent });
 
 /** 拼接 query 参数（分页 page/pageSize 等） */
 function buildQuery(url, params) {
