@@ -53,11 +53,11 @@
 |---|---|---|---|---|
 | W1 | 工程初始化与登录注册（P-001/002/007/008） | ✅ | `docs/phase4/member-b/deliverables/W-01-工程初始化.md`（frontend-user 工程 + 13 页路由骨架 + 双登录） | 2026-08-15 |
 | W2 | 商品浏览链路（P-003~006：首页/搜索/详情/评价） | ✅ | `docs/phase4/member-b/deliverables/W-02-商品浏览链路.md`（Home/Search/ProductDetail + ProductCard 组件 + 加购 U-009） | 2026-08-15 |
-| W3 | 购物与下单链路（U-008~016：购物车/结算/下单/支付） | ⬜ | `docs/phase4/member-b/deliverables/W-03-购物与下单链路.md` | - |
+| W3 | 购物与下单链路（U-008~016：购物车/结算/下单/支付） | ✅ | `docs/phase4/member-b/deliverables/W-03-购物与下单链路.md`（购物车/结算/订单详情三页 + 4001~4008 分支，browser-use 实测） | 2026-08-15 |
 | W4 | 订单与售后链路（U-013~021/024：订单中心/售后/评价） | ⬜ | `docs/phase4/member-b/deliverables/W-04-订单与售后链路.md` | - |
 | W5 | 个人中心链路与全链路自测（U-001~007/022~025） | ⬜ | `docs/phase4/member-b/deliverables/W-05-个人中心与自测.md` | - |
 
-**B 第四阶段完成率：2 / 5。任务书见 `docs/phase4/member-b/tasks/W1-W5-用户网页端任务书.md`（2026-08-15 W1/W2 完成：浏览→搜索→详情链路 browser-use 实测、sort/URL 同步生效；真实数据渲染待 M3）**
+**B 第四阶段完成率：3 / 5。任务书见 `docs/phase4/member-b/tasks/W1-W5-用户网页端任务书.md`（2026-08-15 W1/W2/W3 完成：浏览→搜索→详情链路 + 购物车→结算→下单→模拟支付链路 browser-use 实测；4003~4008 分支与真实状态流转待 M3 联调）**
 
 ---
 
