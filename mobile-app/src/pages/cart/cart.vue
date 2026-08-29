@@ -114,7 +114,7 @@ export default {
 			this.loadFailed = false;
 			try {
 				const data = await getCartItems(true);
-				this.list = (data && data.list) || [];
+				this.list = data || [];
 			} catch (e) {
 				this.list = [];
 				this.loadFailed = true;

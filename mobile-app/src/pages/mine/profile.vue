@@ -64,7 +64,8 @@ export default {
 			this.saving = true;
 			const payload = { phone: this.phone.trim() };
 			if (this.password) {
-				payload.password = this.password;
+				// 后端 DTO 字段为 newPassword（U-002 与 B 端保持一致）
+				payload.newPassword = this.password;
 				payload.oldPassword = this.oldPassword;
 			}
 			try {

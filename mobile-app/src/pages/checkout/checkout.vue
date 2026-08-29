@@ -151,8 +151,8 @@ export default {
 					getAddresses(true),
 					getCartItems(true),
 				]);
-				this.addresses = (addrData && addrData.list) || [];
-				const list = (cartData && cartData.list) || [];
+				this.addresses = addrData || [];
+				const list = cartData || [];
 				this.items = list.filter((i) => this.ids.includes(i.id));
 				// 默认地址优先，否则第一条
 				const def = this.addresses.find((a) => a.isDefault === 1);
@@ -180,13 +180,18 @@ export default {
 				this.orderSuccess = true;
 				uni.removeStorageSync(CHECKOUT_KEY); // 下单成功后清空勾选传递
 			} catch (e) {
-				// 提示由请求层 toast；按错误码做后续动作
+				// 提示由请求层 toast；按错误码做后续动作（与后端 U-012 实际错误码对齐）
+				// 后端实际：4003 购物车项失效 / 4004 购物车为空 / 4005 地址无效 /
+				//          4006 库存不足 / 3001 商品不存在 / 3002 商品已下架 / 4007 价格变化(pay)
 				const code = e && e.code;
-				if (code === 4003) {
+				if (code === 4004) {
 					// 购物车为空：返回购物车刷新
 					setTimeout(() => uni.navigateBack(), 800);
-				} else if (code === 4004 || code === 4005 || code === 4006) {
-					// 下架/库存/价格变化：刷新结算清单
+				} else if (code === 4005) {
+					// 地址无效：刷新结算页（重新拉取地址与商品清单）
+					this.loadCheckout();
+				} else if ([3001, 3002, 4003, 4006, 4007].includes(code)) {
+					// 商品失效/下架/库存不足/价格变化：刷新结算清单
 					this.loadCheckout();
 				}
 			} finally {

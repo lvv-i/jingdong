@@ -63,7 +63,7 @@ export default {
 			this.loadFailed = false;
 			try {
 				const data = await getAddresses(true);
-				this.list = data.list || [];
+				this.list = data || [];
 			} catch (e) {
 				this.loadFailed = true;
 			} finally { this.loading = false; }
