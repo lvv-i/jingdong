@@ -95,11 +95,13 @@
   - ✅ 已修复（D）：H2 初始化中文乱码——application-h2.yml 缺 `spring.sql.init.encoding: UTF-8`，Windows GBK 读 UTF-8 seed 脚本入库乱码；已加配置并重建 H2 数据验证通过
   - ✅ 已闭环（A↔B/D）：U-003/U-008 → `{list,total}`、U-018 → refundNo（A fbe7b71/772ddec 修复）；B 前端 5 处 + D 前端 cart/address/checkout 双兼容解包，新旧 jar 均可正常渲染
 - 🟦 D 牵头功能测试与回归（X-08 用例清单已备料；待全员回归执行；M4 页面级走查轮补截图）
+- ⬜ 答辩环境加固（一键启动脚本 + jar 打包验证）
 - ✅ A/D：U-024 评价高缺陷修复（2026-08-29：mobile-app review.vue prepareReview 自动取首个未评价明细 + detail.vue onShow 刷新评价态 + address.vue 编辑回显 jd_edit_addr；后端 OrderListItemVO/OrderDetailVO 新增 reviewed 字段供前端消费；U-024 回归脚本订单列表+评价页 18/18 PASS）
 - ✅ B：M4 前中低缺陷批量修复（2026-08-29：Login.vue 移除 2005 幽灵码分支、App.vue 购物车徽标改真实角标、Checkout.vue/OrderDetail.vue 支付与下单错误静默兜底 ElMessage、auth.js getProfile/updateProfile silent 透传；`frontend-user npm run build` 通过）
 - ✅ C：构建收尾（2026-08-29：admin-web npm install + build 通过；dev 端口统一 5174 与 C5 交互验收实测一致，C1/X-09 端口描述同步修正）
 - ✅ C：店铺重提 M-002b 接入（2026-08-29：`api/merchant.js` 新增 M002b_resubmitShop 封装 + `Shop.vue` REJECTED 改“重新提交审核”按钮（ElMessageBox 确认 → resubmit，非 APPROVED 禁编辑，与 T1 状态机一致）；`npm run build` 通过）
 - ✅ A/C：M-002b 真实环境 E2E 实测闭环（2026-08-29：MySQL 环境 merchant002 店铺2 全链路 9 步实测——PENDING_AUDIT 重提 1001 拦截 ✅、admin reject 200 ✅、REJECTED 重提 200 ✅、状态回 PENDING_AUDIT 且 auditReason 清空 ✅、重复重提 1001 拦截 ✅、终态恢复原状 ✅；实测发现并修复后端 resubmitShop auditReason 置空失效——MyBatis-Plus updateById NOT_NULL 策略跳过 null，改 LambdaUpdateWrapper 显式 set null）
+- ✅ A/C：T1 3.2「修改资料后重新提交」语义完善闭环（2026-08-29：M-002b v1.2 可选请求体 {shopName?, categoryId?, description?}——携带字段先更新再重提，空 body/{} 向后兼容，ShopResubmitDTO 新建 + 3004 类目校验 + 审计 remark 区分；C 端 Shop.vue REJECTED 改“修改资料并重新提交”按钮 + 预填表单 + handleSave 分流（resubmit 带资料走 M-002b / edit 走 M-002）；T5 升版 v1.2；双端构建通过；MySQL 真实环境 16 步 E2E 全绿 + 中文写入 SQL 字节级验证；修复 shop2 双重编码历史数据恢复 seed 值）
 - ✅ D：构建复核（2026-08-29：mobile-app 高缺陷改动 `build:h5` 通过，未引入语法回归）
 - ⬜ 文档补全与答辩材料准备（全员）
   - ✅ AI 交互记录归档：A/B/C/D 全部完成（`A6/B6/C6/D6-AI交互记录.md`，2026-08-29）

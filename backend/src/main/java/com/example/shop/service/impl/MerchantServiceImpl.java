@@ -9,6 +9,7 @@ import com.example.shop.common.PageQuery;
 import com.example.shop.common.PageResult;
 import com.example.shop.dto.ProductSaveDTO;
 import com.example.shop.dto.ShipDTO;
+import com.example.shop.dto.ShopResubmitDTO;
 import com.example.shop.dto.ShopUpdateDTO;
 import com.example.shop.dto.StockUpdateDTO;
 import com.example.shop.entity.AuditLog;
@@ -98,16 +99,36 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void resubmitShop() {
+    public void resubmitShop(ShopResubmitDTO dto) {
         MerchantShop shop = requireShop();
-        // T1 3.2：仅 REJECTED 可修改后重新提交（状态不符 1001）
+        // T1 3.2：仅 REJECTED 可修改资料后重新提交（状态不符 1001）
         if (!MerchantAuditStatus.REJECTED.name().equals(shop.getAuditStatus())) {
             throw new BusinessException(ErrorCode.PARAM_ERROR, "店铺当前状态不可重新提交");
         }
-        // updateById 默认 NOT_NULL 策略会跳过 null 字段，需用 UpdateWrapper 显式置空 audit_reason
+        // 携带的资料先更新（T1 3.2 完整语义：修改资料后重新提交；全部字段可选）
         LambdaUpdateWrapper<MerchantShop> uw = new LambdaUpdateWrapper<>();
-        uw.eq(MerchantShop::getId, shop.getId())
-                .set(MerchantShop::getAuditStatus, MerchantAuditStatus.PENDING_AUDIT.name())
+        uw.eq(MerchantShop::getId, shop.getId());
+        boolean updated = false;
+        if (dto != null) {
+            if (StringUtils.hasText(dto.getShopName())) {
+                uw.set(MerchantShop::getShopName, dto.getShopName());
+                updated = true;
+            }
+            if (dto.getCategoryId() != null) {
+                // 主营类目校验（3004）
+                if (categoryMapper.selectById(dto.getCategoryId()) == null) {
+                    throw new BusinessException(ErrorCode.CATEGORY_NOT_FOUND);
+                }
+                uw.set(MerchantShop::getCategoryId, dto.getCategoryId());
+                updated = true;
+            }
+            if (dto.getDescription() != null) {
+                uw.set(MerchantShop::getDescription, dto.getDescription());
+                updated = true;
+            }
+        }
+        // updateById 默认 NOT_NULL 策略会跳过 null 字段，需用 UpdateWrapper 显式置空 audit_reason
+        uw.set(MerchantShop::getAuditStatus, MerchantAuditStatus.PENDING_AUDIT.name())
                 .set(MerchantShop::getAuditReason, null);
         merchantShopMapper.update(null, uw);
         // 审计留痕（T4：入驻重提）
@@ -117,7 +138,7 @@ public class MerchantServiceImpl implements MerchantService {
         log.setTargetType("SHOP");
         log.setTargetId(shop.getId());
         log.setAction("RESUBMIT");
-        log.setRemark("商家重新提交入驻审核");
+        log.setRemark(updated ? "商家修改资料后重新提交入驻审核" : "商家重新提交入驻审核");
         auditLogMapper.insert(log);
     }
 

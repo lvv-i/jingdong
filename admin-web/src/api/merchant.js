@@ -14,9 +14,10 @@ export function M002_updateShop(data) {
   return request.put('/merchant/shop', data)
 }
 
-// M-002b POST /api/merchant/shop/resubmit（重新提交入驻审核：REJECTED → PENDING_AUDIT；状态不符 1001）
-export function M002b_resubmitShop() {
-  return request.post('/merchant/shop/resubmit')
+// M-002b POST /api/merchant/shop/resubmit（修改资料后重新提交入驻审核：REJECTED → PENDING_AUDIT；状态不符 1001）
+// data 可选：{shopName?, categoryId?, description?}；不传时发 {}（按现有资料重提，T1 3.2 完整语义）
+export function M002b_resubmitShop(data) {
+  return request.post('/merchant/shop/resubmit', data || {})
 }
 
 // M-003 POST /api/merchant/products（创建商品，初始 DRAFT）

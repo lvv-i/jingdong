@@ -54,8 +54,10 @@
 | A-ResubmitFix | resubmitShop auditReason 置空失效修复（C 端 E2E 实测发现） | ✅ | `MerchantServiceImpl.java`（updateById NOT_NULL 策略跳过 null → 改 LambdaUpdateWrapper 显式 set audit_reason=null）；MySQL 真实环境 9 步 E2E 实测全通过 | 2026-08-29 |
 | A-U024 | 评价高缺陷配套：OrderListItemVO/OrderDetailVO 新增 reviewed 字段 | ✅ | `vo/OrderListItemVO.java` + `vo/OrderDetailVO.java`；U-024 回归脚本 18/18 PASS | 2026-08-29 |
 | A-T5 | T5 接口清单校准 6 处（U-002/U-004/U-010/U-012 + P-008/U-024 幽灵码 + M-002/M-006 REJECTED 重提），版本记录追加 v1.1 | ✅ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v1.1 变更记录行） | 2026-08-29 |
+| A-T1v1.2 | T1 3.2「修改资料后重新提交」语义完善：M-002b 支持可选请求体（ShopResubmitDTO 全可选，携带字段先更新再重提，空 body 向后兼容，3004 校验 + 审计 remark 区分） | ✅ | `dto/ShopResubmitDTO.java`（新建）+ `service/MerchantService.java` + `service/impl/MerchantServiceImpl.java` + `controller/merchant/MerchantController.java`；MySQL 真实环境 16 步 E2E 全绿 + 中文写入 SQL 字节级验证；修复 shop2 双重编码历史数据 | 2026-08-29 |
+| A-T5v1.2 | T5 接口清单升版 v1.2（M-002b 请求参数改为可选 {shopName?, categoryId?, description?} + 错误码 3004） | ✅ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v1.2 版本记录行） | 2026-08-29 |
 
-**A 第五阶段完成率：4 / 4（100%）✅（2026-08-29 全部闭环）**
+**A 第五阶段完成率：6 / 6（100%）✅（2026-08-29 全部闭环）**
 
 ---
 
@@ -110,7 +112,7 @@
 | C5 | 状态机与权限联动（按钮显隐/越权提示/三方协作链路自测） | ✅ | `deliverables/C5-状态按钮映射表.md`（13 页全覆盖）+ `C5-交互验收清单.md`（6 用例 browser-use 实测，0 遗留） | 2026-08-15 |
 | C6 | 联调与验收（契约核对/空状态/演示脚本/AI 交互记录归档） | ✅ | `deliverables/C6-契约核对表.md`（34 接口汇总）+ `C6-演示脚本与截图说明.md` + `C6-AI交互记录.md`（2026-08-29 M3 联调完成） | 2026-08-15 |
 | C7 | M4 前收尾：构建复核 + dev 端口对齐 | ✅ | `npm install` + `npm run build` 通过；`vite.config.js` dev 端口统一 5174（与 C5 交互验收实测一致），C1/X-09 端口描述同步修正 | 2026-08-29 |
-| C8 | 店铺重提 M-002b 接入（补 T1 3.2 C 端缺口） | ✅ | `api/merchant.js` 新增 M002b_resubmitShop + `views/merchant/Shop.vue` REJECTED 改“重新提交审核”按钮（ElMessageBox 确认 → resubmit，非 APPROVED 禁编辑）；`npm run build` 通过；配合 A 完成 MySQL 真实环境 9 步 E2E 实测闭环 | 2026-08-29 |
+| C8 | 店铺重提 M-002b 接入 + T1 3.2 表单联动（补 T1 3.2 C 端缺口） | ✅ | `api/merchant.js` 新增 M002b_resubmitShop（恒传 `data || {}`）+ `views/merchant/Shop.vue` REJECTED 改“修改资料并重新提交”按钮（openResubmit 预填表单，handleSave 分流：resubmit 带资料走 M-002b / edit 走 M-002，弹窗文案随模式切换）；`npm run build` 通过；配合 A 完成 MySQL 真实环境 9 步 + 16 步 E2E 实测闭环 | 2026-08-29 |
 
 **C 第四阶段完成率：6 / 6（100%）✅ 全部完成 + C7/C8 收尾（2026-08-29）。任务书见 `docs/phase4/member-c/tasks/`（2026-08-15 C1-C6 完成：商家后台 6 页接通 M-001~015、管理员后台 7 页接通 A-001~019、13 页状态按钮映射与越权拦截核查通过、34 接口汇总核对 + 演示脚本 + AI 记录归档，browser-use 实测；**M3 联调完成（2026-08-29，H2 备选环境：登录 / 错误码 1002/1003 实测 / 四条链路流转 / 审计日志 6 条留痕全通过，模糊点 1 闭环；发现 2 个后端状态机缺口已反馈 A，2026-08-29 由 A 修复并回归 21/21 闭环，详见 `deliverables/C6-契约核对表.md` 第 5 节）；C8（2026-08-29）店铺重提 M-002b 接入闭环，MySQL 真实环境 9 步 E2E 实测全通过**）**
 

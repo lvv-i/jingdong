@@ -4,6 +4,7 @@ import com.example.shop.common.ApiResult;
 import com.example.shop.common.PageQuery;
 import com.example.shop.common.PageResult;
 import com.example.shop.dto.ProductSaveDTO;
+import com.example.shop.dto.ShopResubmitDTO;
 import com.example.shop.dto.ShopUpdateDTO;
 import com.example.shop.dto.StockUpdateDTO;
 import com.example.shop.service.MerchantService;
@@ -46,10 +47,11 @@ public class MerchantController {
         return ApiResult.success();
     }
 
-    /** M-002b 重新提交入驻审核：REJECTED → PENDING_AUDIT（T1 3.2） */
+    /** M-002b 重新提交入驻审核：REJECTED → PENDING_AUDIT（T1 3.2 修改资料后重新提交）
+     *  请求体可选：携带的字段先更新再重提；空 body 按现有资料重提（向后兼容） */
     @PostMapping("/shop/resubmit")
-    public ApiResult<Void> resubmitShop() {
-        merchantService.resubmitShop();
+    public ApiResult<Void> resubmitShop(@RequestBody(required = false) ShopResubmitDTO dto) {
+        merchantService.resubmitShop(dto);
         return ApiResult.success();
     }
 

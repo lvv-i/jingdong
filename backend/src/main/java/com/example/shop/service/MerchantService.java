@@ -4,6 +4,7 @@ import com.example.shop.common.PageQuery;
 import com.example.shop.common.PageResult;
 import com.example.shop.dto.ProductSaveDTO;
 import com.example.shop.dto.ShipDTO;
+import com.example.shop.dto.ShopResubmitDTO;
 import com.example.shop.dto.ShopUpdateDTO;
 import com.example.shop.dto.StockUpdateDTO;
 import com.example.shop.vo.MerchantOrderVO;
@@ -25,8 +26,9 @@ public interface MerchantService {
     /** M-002 编辑店铺（非 APPROVED 状态不可编辑：6002/6003/6005） */
     void updateShop(ShopUpdateDTO dto);
 
-    /** M-002b 重新提交入驻审核：REJECTED → PENDING_AUDIT（T1 3.2；状态不符 1001） */
-    void resubmitShop();
+    /** M-002b 重新提交入驻审核：REJECTED → PENDING_AUDIT（T1 3.2 修改资料后重新提交；状态不符 1001）
+     *  dto 全字段可选：携带的字段先更新再重提；空 body 按现有资料重提（向后兼容） */
+    void resubmitShop(ShopResubmitDTO dto);
 
     /** M-003 创建商品（DRAFT；images 写 product_images；店铺须 APPROVED 6002；类目校验 3004） */
     Long createProduct(ProductSaveDTO dto);
