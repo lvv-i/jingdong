@@ -1,9 +1,8 @@
 package com.example.shop.service;
 
+import com.example.shop.common.PageResult;
 import com.example.shop.dto.AddressDTO;
 import com.example.shop.vo.AddressVO;
-
-import java.util.List;
 
 /**
  * 收货地址服务
@@ -12,8 +11,8 @@ import java.util.List;
  */
 public interface AddressService {
 
-    /** U-003 地址列表 */
-    List<AddressVO> list();
+    /** U-003 地址列表（T5 通用约定：data 为 {list, total}） */
+    PageResult<AddressVO> list();
 
     /** U-004 新增（超 20 个返回 2006） */
     Long add(AddressDTO dto);

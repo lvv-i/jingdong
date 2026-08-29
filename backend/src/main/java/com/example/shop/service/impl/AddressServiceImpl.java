@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.shop.common.BusinessException;
 import com.example.shop.common.ErrorCode;
+import com.example.shop.common.PageResult;
 import com.example.shop.dto.AddressDTO;
 import com.example.shop.entity.Address;
 import com.example.shop.mapper.AddressMapper;
@@ -31,12 +32,13 @@ public class AddressServiceImpl implements AddressService {
     private int maxCount;
 
     @Override
-    public List<AddressVO> list() {
+    public PageResult<AddressVO> list() {
         Long userId = UserContext.requireUserId();
-        return addressMapper.selectList(new LambdaQueryWrapper<Address>()
+        List<AddressVO> list = addressMapper.selectList(new LambdaQueryWrapper<Address>()
                         .eq(Address::getUserId, userId)
                         .orderByDesc(Address::getIsDefault).orderByDesc(Address::getUpdatedAt))
                 .stream().map(this::toVO).toList();
+        return PageResult.of(list, list.size());
     }
 
     @Override

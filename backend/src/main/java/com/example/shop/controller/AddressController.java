@@ -1,6 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.common.ApiResult;
+import com.example.shop.common.PageResult;
 import com.example.shop.dto.AddressDTO;
 import com.example.shop.service.AddressService;
 import com.example.shop.vo.AddressVO;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,9 +28,9 @@ public class AddressController {
 
     private final AddressService addressService;
 
-    /** U-003 地址列表 */
+    /** U-003 地址列表（T5 通用约定：data 为 {list, total}） */
     @GetMapping
-    public ApiResult<List<AddressVO>> list() {
+    public ApiResult<PageResult<AddressVO>> list() {
         return ApiResult.success(addressService.list());
     }
 
