@@ -98,6 +98,8 @@
 - ✅ A/D：U-024 评价高缺陷修复（2026-08-29：mobile-app review.vue prepareReview 自动取首个未评价明细 + detail.vue onShow 刷新评价态 + address.vue 编辑回显 jd_edit_addr；后端 OrderListItemVO/OrderDetailVO 新增 reviewed 字段供前端消费；U-024 回归脚本订单列表+评价页 18/18 PASS）
 - ✅ B：M4 前中低缺陷批量修复（2026-08-29：Login.vue 移除 2005 幽灵码分支、App.vue 购物车徽标改真实角标、Checkout.vue/OrderDetail.vue 支付与下单错误静默兜底 ElMessage、auth.js getProfile/updateProfile silent 透传；`frontend-user npm run build` 通过）
 - ✅ C：构建收尾（2026-08-29：admin-web npm install + build 通过；dev 端口统一 5174 与 C5 交互验收实测一致，C1/X-09 端口描述同步修正）
+- ✅ C：店铺重提 M-002b 接入（2026-08-29：`api/merchant.js` 新增 M002b_resubmitShop 封装 + `Shop.vue` REJECTED 改“重新提交审核”按钮（ElMessageBox 确认 → resubmit，非 APPROVED 禁编辑，与 T1 状态机一致）；`npm run build` 通过）
+- ✅ A/C：M-002b 真实环境 E2E 实测闭环（2026-08-29：MySQL 环境 merchant002 店铺2 全链路 9 步实测——PENDING_AUDIT 重提 1001 拦截 ✅、admin reject 200 ✅、REJECTED 重提 200 ✅、状态回 PENDING_AUDIT 且 auditReason 清空 ✅、重复重提 1001 拦截 ✅、终态恢复原状 ✅；实测发现并修复后端 resubmitShop auditReason 置空失效——MyBatis-Plus updateById NOT_NULL 策略跳过 null，改 LambdaUpdateWrapper 显式 set null）
 - ✅ D：构建复核（2026-08-29：mobile-app 高缺陷改动 `build:h5` 通过，未引入语法回归）
 - ⬜ 文档补全与答辩材料准备（全员）
   - ✅ AI 交互记录归档：A/B/C/D 全部完成（`A6/B6/C6/D6-AI交互记录.md`，2026-08-29）

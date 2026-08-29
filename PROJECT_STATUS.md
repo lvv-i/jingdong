@@ -1,6 +1,6 @@
 # 项目状态总览
 
-> 最后更新：2026-08-29 ｜ 更新人：A / C / B·D（M3 部署 + 契约核对 + 真实联调 + 修复收尾） ｜ 当前阶段：🟦 第五阶段（联调验收）推进中
+> 最后更新：2026-08-29 ｜ 更新人：C / A（C 端店铺重提 M-002b 接入 + 后端 audit_reason 置空修复 + 真实环境 E2E 实测闭环） ｜ 当前阶段：🟦 第五阶段（联调验收）推进中
 >
 > 关联文件：[成员完成状态](docs/progress/member-status.md) ｜ [项目进度](docs/progress/roadmap.md) ｜ [待实现进度](docs/progress/backlog.md)
 
@@ -10,7 +10,7 @@
 |---|---|
 | 阶段目标 | 前后端真实联调、功能测试回归、文档补全与答辩材料准备 |
 | 计划周期 | 2026-08-29 推进（M3 MySQL 8 环境 → H2 内嵌替代方案已就绪，后端 8080 正常运行） |
-| 当前进度 | 🟦 进行中（M3 达成：后端 68 接口全部可调用；A/B/C/D 四端均已完成 H2 环境真实联调（B：全量验证 + 47 用例 + 14 接口全链路 + 5 页页面实测；C：34 接口全链路 + 四链路流转；D：25 步全链路 + H5 实测）；2 个状态机缺口已修复（M-002b + M-006 扩展）；T5 v1.1 已发布；U-024 评价高缺陷与 B/C/D 中低缺陷收尾 + 三端构建复核；AI 交互记录四端归档、演示截图 10 张归档；小程序产物结构验收通过（GUI 待工具安装）；剩实验报告/答辩材料 + M4 走查轮） |
+| 当前进度 | 🟦 进行中（M3 达成：后端 68 接口全部可调用；A/B/C/D 四端均已完成 H2 环境真实联调（B：全量验证 + 47 用例 + 14 接口全链路 + 5 页页面实测；C：34 接口全链路 + 四链路流转；D：25 步全链路 + H5 实测）；2 个状态机缺口已修复（M-002b + M-006 扩展）；**C 端店铺重提 M-002b 接入闭环 + 后端 resubmit audit_reason 置空修复（MySQL 真实环境 9 步 E2E 实测全通过）**；T5 v1.1 已发布；U-024 评价高缺陷与 B/C/D 中低缺陷收尾 + 三端构建复核；AI 交互记录四端归档、演示截图 10 张归档；小程序产物结构验收通过（GUI 待工具安装）；剩实验报告/答辩材料 + M4 走查轮） |
 | 阶段负责人 | A（后端）｜ B/C/D（各端联调）｜ D（测试牵头） |
 
 > 2026-08-29 契约对齐补充轮：B W6 + D X6 产出 33 接口逐条核对表；D 修复 6 处契约运行时代码（U-003/U-008 裸数组解包×4、U-012 错误分支重映射、U-002 newPassword 字段）；A 已同步从后端修复 U-003/U-008 信封形态与 U-018 refundNo（fbe7b71 / 772ddec）；B/D 修正注释漂移并整理契约偏差清单（建议 A 升版 T5 v1.1）。
@@ -78,6 +78,8 @@
 - [x] B/C/D：演示截图补拍完成（2026-08-29：B 5 张 m3-* + D 3 张 x9-* + C 2 张 c6-*，共 10 张，OS 级截图替代方案）
 - [x] D：小程序产物验收完成（2026-08-29：build:mp-weixin 重新构建含双兼容修复 + 产物结构验证 app.json 17 页/tabBar/组件齐全；GUI 验收待微信开发者工具安装后执行）
 - [x] C：admin-web 登录提示修正（2026-08-29：密码提示改为与账号名相同，与 seed 约定一致）
+- [x] C：店铺重提 M-002b 接入（2026-08-29：`api/merchant.js` 新增 M002b_resubmitShop 封装 + `Shop.vue` REJECTED 改“重新提交审核”按钮（确认框 → resubmit，非 APPROVED 禁编辑），`npm run build` 通过）
+- [x] A/C：M-002b 真实环境 E2E 实测闭环（2026-08-29：MySQL 环境 merchant002 店铺2 驳回→重提→待审核 9 步全通过（PENDING_AUDIT 拦截 1001、REJECTED 重提 200、auditReason 清空、终态恢复）；实测发现并修复后端 resubmitShop auditReason 置空失效——updateById NOT_NULL 策略跳过 null，改 LambdaUpdateWrapper 显式置空）
 - [x] A/D：U-024 评价高缺陷修复（2026-08-29：后端 OrderListItemVO/OrderDetailVO 新增 reviewed + mobile-app review.vue prepareReview/address.vue 编辑回显；U-024 回归脚本 18/18 PASS）
 - [x] B：中低缺陷批量修复（2026-08-29：Login.vue 移除 2005 幽灵码分支 + App.vue 购物车徽标真实角标 + Checkout.vue/OrderDetail.vue 支付/下单静默兜底 + auth.js silent 透传；`npm run build` 通过）
 - [x] C/D：构建收尾复核（2026-08-29：admin-web npm install + build 通过、dev 端口统一 5174；mobile-app 高缺陷改动 `build:h5` 通过）

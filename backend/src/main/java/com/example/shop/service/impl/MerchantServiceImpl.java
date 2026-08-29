@@ -1,6 +1,7 @@
 package com.example.shop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.shop.common.BusinessException;
 import com.example.shop.common.ErrorCode;
@@ -103,9 +104,12 @@ public class MerchantServiceImpl implements MerchantService {
         if (!MerchantAuditStatus.REJECTED.name().equals(shop.getAuditStatus())) {
             throw new BusinessException(ErrorCode.PARAM_ERROR, "店铺当前状态不可重新提交");
         }
-        shop.setAuditStatus(MerchantAuditStatus.PENDING_AUDIT.name());
-        shop.setAuditReason(null);
-        merchantShopMapper.updateById(shop);
+        // updateById 默认 NOT_NULL 策略会跳过 null 字段，需用 UpdateWrapper 显式置空 audit_reason
+        LambdaUpdateWrapper<MerchantShop> uw = new LambdaUpdateWrapper<>();
+        uw.eq(MerchantShop::getId, shop.getId())
+                .set(MerchantShop::getAuditStatus, MerchantAuditStatus.PENDING_AUDIT.name())
+                .set(MerchantShop::getAuditReason, null);
+        merchantShopMapper.update(null, uw);
         // 审计留痕（T4：入驻重提）
         AuditLog log = new AuditLog();
         log.setOperatorId(UserContext.requireUserId());

@@ -18,9 +18,9 @@
             v-else-if="shop.auditStatus === 'REJECTED'"
             type="primary"
             :icon="Edit"
-            @click="openEdit"
+            @click="handleResubmit"
           >
-            修改并重新提交
+            重新提交审核
           </el-button>
         </div>
       </template>
@@ -42,7 +42,7 @@
         class="mb16"
       >
         <template #title>
-          入驻申请被驳回：{{ shop.auditReason || '未填写原因' }}。请修改资料后重新提交审核。
+          入驻申请被驳回：{{ shop.auditReason || '未填写原因' }}。请确认资料无误后重新提交审核（M-002b）。
         </template>
       </el-alert>
 
@@ -62,10 +62,10 @@
       </el-descriptions>
     </el-card>
 
-    <!-- 编辑弹窗（M-002 PUT /api/merchant/shop：shopName/categoryId/description） -->
+    <!-- 编辑弹窗（M-002 PUT /api/merchant/shop：shopName/categoryId/description；仅 APPROVED 可编辑） -->
     <el-dialog
       v-model="editVisible"
-      :title="shop.auditStatus === 'REJECTED' ? '修改店铺资料并重新提交' : '编辑店铺资料'"
+      title="编辑店铺资料"
       width="520px"
       destroy-on-close
     >
@@ -106,9 +106,9 @@
 <script setup>
 // C-M06：M-001 店铺资料 + M-002 编辑店铺（T5 商家组）；类目选择用 P-003 公共类目树
 import { reactive, ref, computed, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Edit } from '@element-plus/icons-vue'
-import { M001_getShop, M002_updateShop } from '../../api/merchant'
+import { M001_getShop, M002_updateShop, M002b_resubmitShop } from '../../api/merchant'
 import { P003_categories } from '../../api/auth'
 import { MERCHANT_AUDIT_STATUS, statusInfo } from '../../utils/status'
 
@@ -182,16 +182,35 @@ async function handleSave() {
   await formRef.value.validate()
   saving.value = true
   try {
-    // M-002：非 APPROVED 不可编辑（后端校验 6002/6003/6005）；REJECTED 修改即重新提交
+    // M-002：非 APPROVED 不可编辑（后端校验 6002/6003/6005）
     await M002_updateShop({
       shopName: form.shopName,
       categoryId: form.categoryId,
       description: form.description
     })
-    ElMessage.success(
-      shop.auditStatus === 'REJECTED' ? '已重新提交入驻申请，等待审核' : '店铺资料已保存'
-    )
+    ElMessage.success('店铺资料已保存')
     editVisible.value = false
+    loadShop()
+  } finally {
+    saving.value = false
+  }
+}
+
+// M-002b：REJECTED → PENDING_AUDIT（T5 v1.1 新增接口，T1 3.2 状态机流转；后端当前无参，按现有资料直接重提）
+async function handleResubmit() {
+  try {
+    await ElMessageBox.confirm(
+      '将以现有店铺资料重新提交入驻审核，是否继续？',
+      '重新提交审核',
+      { type: 'warning', confirmButtonText: '确认提交', cancelButtonText: '取消' }
+    )
+  } catch {
+    return
+  }
+  saving.value = true
+  try {
+    await M002b_resubmitShop()
+    ElMessage.success('已重新提交入驻申请，等待审核')
     loadShop()
   } finally {
     saving.value = false
