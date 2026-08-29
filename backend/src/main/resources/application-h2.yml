@@ -19,7 +19,10 @@ spring:
       path: /h2-console
   sql:
     init:
+      # 首次启动建库 + 导入种子；重启时 schema 已 IF NOT EXISTS 跳过、seed 重复插入主键冲突被忽略（联调数据保留）
       mode: always
+      encoding: UTF-8
       schema-locations: classpath:sql/h2-schema.sql
       data-locations: classpath:sql/h2-seed.sql
-      continue-on-error: false
+      # true：重启重跑 seed 时忽略主键冲突（不覆盖联调产生的数据）；本地运行可用外部配置 config/application-h2.yml 改 never
+      continue-on-error: true

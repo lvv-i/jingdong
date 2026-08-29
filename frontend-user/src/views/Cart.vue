@@ -110,12 +110,13 @@ const selectedAmount = computed(() =>
   items.value.filter((i) => i.selected === 1).reduce((s, i) => s + i.price * i.quantity, 0)
 )
 
-/** U-008 购物车列表（T5 契约：data 为 {list, total}，后端已对齐） */
+/** U-008 购物车列表 */
 async function loadCart() {
   loading.value = true
   try {
     const data = await getCartItems({ silent: true })
-    items.value = data?.list || []
+    // 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 772ddec 已按 T5 契约修复）
+    items.value = Array.isArray(data) ? data : (data && data.list) || []
   } catch {
     items.value = []
   } finally {

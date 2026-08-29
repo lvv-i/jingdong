@@ -97,6 +97,28 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public void resubmitShop() {
+        MerchantShop shop = requireShop();
+        // T1 3.2：仅 REJECTED 可修改后重新提交（状态不符 1001）
+        if (!MerchantAuditStatus.REJECTED.name().equals(shop.getAuditStatus())) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR, "店铺当前状态不可重新提交");
+        }
+        shop.setAuditStatus(MerchantAuditStatus.PENDING_AUDIT.name());
+        shop.setAuditReason(null);
+        merchantShopMapper.updateById(shop);
+        // 审计留痕（T4：入驻重提）
+        AuditLog log = new AuditLog();
+        log.setOperatorId(UserContext.requireUserId());
+        log.setOperatorRole(LoginUser.ROLE_MERCHANT);
+        log.setTargetType("SHOP");
+        log.setTargetId(shop.getId());
+        log.setAction("RESUBMIT");
+        log.setRemark("商家重新提交入驻审核");
+        auditLogMapper.insert(log);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long createProduct(ProductSaveDTO dto) {
         MerchantShop shop = requireShop();
         // M-003：店铺须已通过审核（6002）
@@ -159,8 +181,8 @@ public class MerchantServiceImpl implements MerchantService {
     @Transactional(rollbackFor = Exception.class)
     public void submitProduct(Long id) {
         Product product = requireOwnProduct(id);
-        // M-006：DRAFT → PENDING_ON_SALE
-        if (!ProductStatus.DRAFT.name().equals(product.getStatus())) {
+        // M-006：DRAFT / OFF_SALE → PENDING_ON_SALE（T1 4.2：下架商品重新提交上架须重新审核）
+        if (!List.of(ProductStatus.DRAFT.name(), ProductStatus.OFF_SALE.name()).contains(product.getStatus())) {
             throw new BusinessException(ErrorCode.PRODUCT_STATUS_NOT_ALLOWED);
         }
         // 3006 信息不完整校验（上架必填字段）

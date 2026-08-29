@@ -106,11 +106,12 @@ const submitting = ref(false)
 const totalCount = computed(() => items.value.reduce((s, i) => s + i.quantity, 0))
 const totalAmount = computed(() => items.value.reduce((s, i) => s + i.price * i.quantity, 0))
 
-/** U-003 地址列表（T5 契约：data 为 {list, total}）；默认选中默认地址 */
+/** U-003 地址列表；默认选中默认地址 */
 async function loadAddresses() {
   try {
-    const data = await getAddresses({ silent: true })
-    addresses.value = data?.list || []
+    const addrData = await getAddresses({ silent: true })
+    // 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 已按 T5 契约修复）
+    addresses.value = Array.isArray(addrData) ? addrData : (addrData && addrData.list) || []
     const def = addresses.value.find((a) => a.isDefault === 1)
     addressId.value = def ? def.id : addresses.value[0]?.id ?? null
   } catch {
@@ -120,11 +121,13 @@ async function loadAddresses() {
   }
 }
 
-/** U-008 读取勾选项（T5 契约：data 为 {list, total}；结算快照：仅 selected=1） */
+/** U-008 读取勾选项（结算快照：仅 selected=1） */
 async function loadCheckoutItems() {
   try {
-    const data = await getCartItems({ silent: true })
-    items.value = (data?.list || []).filter((i) => i.selected === 1)
+    const cartData = await getCartItems({ silent: true })
+    // 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 772ddec 已按 T5 契约修复）
+    const list = Array.isArray(cartData) ? cartData : (cartData && cartData.list) || []
+    items.value = list.filter((i) => i.selected === 1)
   } catch {
     items.value = []
   } finally {

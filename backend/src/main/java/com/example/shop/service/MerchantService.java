@@ -25,6 +25,9 @@ public interface MerchantService {
     /** M-002 编辑店铺（非 APPROVED 状态不可编辑：6002/6003/6005） */
     void updateShop(ShopUpdateDTO dto);
 
+    /** M-002b 重新提交入驻审核：REJECTED → PENDING_AUDIT（T1 3.2；状态不符 1001） */
+    void resubmitShop();
+
     /** M-003 创建商品（DRAFT；images 写 product_images；店铺须 APPROVED 6002；类目校验 3004） */
     Long createProduct(ProductSaveDTO dto);
 
@@ -34,7 +37,7 @@ public interface MerchantService {
     /** M-005 编辑商品（仅 DRAFT/OFF_SALE 可编辑 3005；非本店 6004） */
     void updateProduct(Long id, ProductSaveDTO dto);
 
-    /** M-006 提交上架：DRAFT → PENDING_ON_SALE（信息不完整 3006） */
+    /** M-006 提交上架：DRAFT/OFF_SALE → PENDING_ON_SALE（信息不完整 3006） */
     void submitProduct(Long id);
 
     /** M-007 主动下架：ON_SALE → OFF_SALE */

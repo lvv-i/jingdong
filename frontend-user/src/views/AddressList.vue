@@ -96,12 +96,13 @@ const form = reactive({
   isDefault: 0
 })
 
-/** U-003 地址列表（T5 契约：data 为 {list, total}，后端已对齐） */
+/** U-003 地址列表 */
 async function loadAddresses() {
   loading.value = true
   try {
-    const data = await getAddresses({ silent: true })
-    addresses.value = data?.list || []
+    const addrData = await getAddresses({ silent: true })
+    // 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 已按 T5 契约修复）
+    addresses.value = Array.isArray(addrData) ? addrData : (addrData && addrData.list) || []
   } catch {
     addresses.value = []
   } finally {

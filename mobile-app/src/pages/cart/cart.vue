@@ -114,8 +114,8 @@ export default {
 			this.loadFailed = false;
 			try {
 				const data = await getCartItems(true);
-				// U-008 T5 契约：data 为 {list, total}（后端已对齐）
-				this.list = (data && data.list) || [];
+				// 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 772ddec 已改回 T5 契约）
+				this.list = Array.isArray(data) ? data : (data && data.list) || [];
 			} catch (e) {
 				this.list = [];
 				this.loadFailed = true;
