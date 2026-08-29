@@ -82,6 +82,12 @@ export default {
 		},
 		editAddr(a) {
 			const id = a ? a.id : "";
+			// 编辑模式回显：U-003 列表数据已含全部字段，写入 storage 供编辑页 onLoad 恢复
+			if (a) {
+				uni.setStorageSync("jd_edit_addr", JSON.stringify(a));
+			} else {
+				uni.removeStorageSync("jd_edit_addr");
+			}
 			uni.navigateTo({ url: `/pages/mine/address-edit?id=${id}` });
 		},
 		async setDefault(a) {

@@ -158,14 +158,18 @@ async function handleSubmit() {
   }
 }
 
-/** 下单错误分支（T3 4003~4007）：提示并刷新购物车快照 */
+/** 下单错误分支（T3 4003~4007）：提示并刷新购物车快照；其余错误请求为 silent，须在此兜底提示 */
 function handleOrderError(code, message) {
   if ([4003, 4004, 4005, 4006, 4007].includes(code)) {
     ElMessageBox.alert(message, '下单失败', { type: 'warning', confirmButtonText: '知道了' })
     loadCheckoutItems()
     if (code === 4005) loadAddresses()
+    return
   }
-  // 其他错误由全局拦截器 toast 提示
+  // 1002 由全局拦截器跳登录；其余（3001/3002/网络等）给用户可见反馈
+  if (code !== 1002) {
+    ElMessage.error(message || '下单失败，请稍后重试')
+  }
 }
 
 onMounted(() => {

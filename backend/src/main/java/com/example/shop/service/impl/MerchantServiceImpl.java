@@ -261,8 +261,9 @@ public class MerchantServiceImpl implements MerchantService {
         List<OrderItemVO> itemVOs = items.stream().map(i -> new OrderItemVO(i.getId(), i.getProductId(),
                 i.getTitleSnapshot(), i.getPriceSnapshot(), i.getQuantity(), i.getTotalPrice(),
                 i.getRating(), i.getComment(), i.getReviewedAt())).toList();
+        boolean reviewed = !itemVOs.isEmpty() && itemVOs.stream().allMatch(i -> i.getRating() != null);
         return new OrderDetailVO(order.getId(), order.getOrderNo(), order.getTotalAmount(), order.getPayAmount(),
-                order.getReceiverSnapshot(), order.getShippingNo(), order.getStatus(), itemVOs,
+                order.getReceiverSnapshot(), order.getShippingNo(), order.getStatus(), itemVOs, reviewed,
                 order.getPaidAt(), order.getShippedAt(), order.getCompletedAt(), order.getCreatedAt());
     }
 

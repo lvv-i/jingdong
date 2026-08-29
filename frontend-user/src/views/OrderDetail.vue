@@ -166,6 +166,10 @@ async function handlePay() {
     } else if (err.code === 4002) {
       ElMessage.warning(err.message)
       loadDetail()
+    } else if (err.code !== 1002) {
+      // 请求为 silent：3001/3002/3003/4007 等在此兜底提示
+      ElMessage.error(err.message || '支付失败，请稍后重试')
+      loadDetail()
     }
   } finally {
     paying.value = false

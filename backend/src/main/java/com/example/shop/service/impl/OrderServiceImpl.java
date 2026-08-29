@@ -190,8 +190,9 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderListItemVO> list = page.getRecords().stream().map(o -> {
             List<OrderItem> items = itemsMap.getOrDefault(o.getId(), List.of());
+            boolean reviewed = !items.isEmpty() && items.stream().allMatch(i -> i.getRating() != null);
             return new OrderListItemVO(o.getId(), o.getOrderNo(), o.getPayAmount(), o.getStatus(),
-                    o.getCreatedAt(), items.size(), firstImageMap.get(o.getId()));
+                    o.getCreatedAt(), items.size(), firstImageMap.get(o.getId()), reviewed);
         }).toList();
         return PageResult.of(list, page.getTotal());
     }
@@ -204,8 +205,9 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItemVO> itemVOs = items.stream().map(i -> new OrderItemVO(i.getId(), i.getProductId(),
                 i.getTitleSnapshot(), i.getPriceSnapshot(), i.getQuantity(), i.getTotalPrice(),
                 i.getRating(), i.getComment(), i.getReviewedAt())).toList();
+        boolean reviewed = !items.isEmpty() && items.stream().allMatch(i -> i.getRating() != null);
         return new OrderDetailVO(order.getId(), order.getOrderNo(), order.getTotalAmount(), order.getPayAmount(),
-                order.getReceiverSnapshot(), order.getShippingNo(), order.getStatus(), itemVOs,
+                order.getReceiverSnapshot(), order.getShippingNo(), order.getStatus(), itemVOs, reviewed,
                 order.getPaidAt(), order.getShippedAt(), order.getCompletedAt(), order.getCreatedAt());
     }
 

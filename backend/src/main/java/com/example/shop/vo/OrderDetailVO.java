@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 订单详情（T5 U-014：{id, orderNo, totalAmount, payAmount, receiverSnapshot, shippingNo, status,
- * items:[...], paidAt, shippedAt, completedAt}）
+ * items:[...], paidAt, shippedAt, completedAt, reviewed}）
  */
 @Data
 @NoArgsConstructor
@@ -37,6 +37,9 @@ public class OrderDetailVO {
 
     /** 订单明细（快照） */
     private List<OrderItemVO> items;
+
+    /** 订单是否已全部评价（所有明细细节均有 rating；U-024 评价后为 true） */
+    private Boolean reviewed;
 
     private LocalDateTime paidAt;
 

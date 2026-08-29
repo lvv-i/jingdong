@@ -44,12 +44,13 @@
 </template>
 
 <script>
-import { reviewOrder } from "../../api/order";
+import { getOrderDetail, reviewOrder } from "../../api/order";
 
 export default {
 	data() {
 		return {
 			orderId: "",
+			orderItemId: "",
 			rating: 5,
 			comment: "",
 			submitting: false,
@@ -58,17 +59,45 @@ export default {
 	},
 	onLoad(options) {
 		this.orderId = options.id || "";
+		this.prepareReview();
 	},
 	methods: {
+		// U-024 需 orderItemId（后端按明细判重）。进入时拉取订单详情，
+		// 取第一个未评价明细作为待评价目标；已全部评价则阻断提交
+		async prepareReview() {
+			try {
+				const detail = await getOrderDetail(this.orderId, true);
+				if (!detail || detail.status !== "COMPLETED") {
+					this.errorMsg = "订单状态不可评价";
+					return;
+				}
+				const unreviewed = (detail.items || []).find((i) => i.rating == null);
+				if (!unreviewed) {
+					this.errorMsg = "该订单已全部评价";
+					return;
+				}
+				this.orderItemId = unreviewed.id;
+			} catch (e) {
+				this.errorMsg = e?.message || "订单加载失败";
+			}
+		},
 		async submit() {
 			this.errorMsg = "";
+			if (!this.orderItemId) {
+				this.errorMsg = "没有可评价的商品";
+				return;
+			}
 			if (!this.comment.trim()) {
 				this.errorMsg = "请输入评价内容";
 				return;
 			}
 			this.submitting = true;
 			try {
-				await reviewOrder(this.orderId, { rating: this.rating, comment: this.comment.trim() });
+				await reviewOrder(this.orderId, {
+					orderItemId: this.orderItemId,
+					rating: this.rating,
+					comment: this.comment.trim(),
+				});
 				uni.showToast({ title: "评价成功", icon: "success" });
 				setTimeout(() => { uni.navigateBack(); }, 1200);
 			} catch (e) {

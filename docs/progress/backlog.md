@@ -77,7 +77,7 @@
 - ✅ B/D：③ 联调自测脚本备料完成（2026-08-29：25 步接口级自测脚本 + 5 步页面级自测 + 三端闭环 10 分钟演示脚本，交付物 X-09；B 端用户侧演示脚本 W-08）
 - ✅ B/D：④ dev smoke + 环境就绪（2026-08-29：mobile-app H5 真实后端渲染 5 页实测通过、无 JS 报错；frontend-user dev 5174 路由 + /api 代理联通；双端构建通过；页面级截图已补拍归档（B 5 张 + D 3 张 + C 2 张））
 - ✅ B：前端双兼容修复（2026-08-29 查漏：U-003/U-008 裸数组解包×4 + U-018 单号字段 refundNo||refundId，配合 A 契约修复；`npm run build` 通过）
-- ✅ A：T5 文档 v1.1 修订完成（2026-08-29：U-012 返回 `orders[].orderId` 字段名/P-008 幽灵码 2005→2004/U-024 幽灵码 4005 移除/U-002 字段名/U-004/U-010 整数 0/1 语义/新增 M-002b/扩展 M-006；U-003/U-008 信封与 U-018 refundNo 已由 A 修复、B/D 前端双兼容闭环；总数 67→68）
+- ✅ A：T5 文档 v1.1 修订完成（2026-08-29：U-012 返回 {orders:[...]} 拆单/P-008 幽灵码 2005→2003（2004 为账号禁用码，非本接口）/U-024 幽灵码 4005 移除/U-002 oldPassword/newPassword 字段/U-004、U-010 整数 0/1 语义/新增 M-002b/扩展 M-006；U-003/U-008 信封与 U-018 refundNo 已由 A 修复、B/D 前端双兼容闭环；总数 67→68）
 
 > 说明：X-07/X-08/X-09 编号存在两版并行交付物（本组）——早期会话版 `X-07-移动端测试用例清单 / X-08-联调回归记录 / X-09-演示脚本与截图说明`（B/D 联调轮），与 D 会话完成版 `X-07-M3联调验证记录 / X-08-测试基线复核与用例清单 / X-09-联调自测脚本备料`（M3 全链路 + H5 + 乱码修复）。第五阶段联调以 D 完成版为准，早期版保留为过程记录。
 
@@ -89,12 +89,16 @@
 - ✅ 已修复（A，2026-08-29）：C 联调发现的 2 个 T1 状态机流转缺口——
   - 店铺 REJECTED → PENDING_AUDIT：新增 M-002b `POST /api/merchant/shop/resubmit`（状态不符 1001 + 审计留痕 RESUBMIT；实测驳回→重提→待审核 ✅、APPROVED 重提 1001 ✅）
   - 商品 OFF_SALE → PENDING_ON_SALE：M-006 扩展为 DRAFT/OFF_SALE → PENDING_ON_SALE（实测下架→重提→待上架→审核恢复 ✅）
-- 🚫 反馈 A（D 联调发现，契约/配置观察项）：
+- ✅ 观察项（D 联调发现，契约/配置；均已接受或闭环）：
   - 伪造 token 返回 1002「登录凭证无效」（T5 的 1003 实际未单独抛出，前端行为正确）
   - 空购物车下单返回 1001「请勾选要结算的商品」（参数校验先拦截，4003 未达；可接受）
   - ✅ 已修复（D）：H2 初始化中文乱码——application-h2.yml 缺 `spring.sql.init.encoding: UTF-8`，Windows GBK 读 UTF-8 seed 脚本入库乱码；已加配置并重建 H2 数据验证通过
   - ✅ 已闭环（A↔B/D）：U-003/U-008 → `{list,total}`、U-018 → refundNo（A fbe7b71/772ddec 修复）；B 前端 5 处 + D 前端 cart/address/checkout 双兼容解包，新旧 jar 均可正常渲染
 - 🟦 D 牵头功能测试与回归（X-08 用例清单已备料；待全员回归执行；M4 页面级走查轮补截图）
+- ✅ A/D：U-024 评价高缺陷修复（2026-08-29：mobile-app review.vue prepareReview 自动取首个未评价明细 + detail.vue onShow 刷新评价态 + address.vue 编辑回显 jd_edit_addr；后端 OrderListItemVO/OrderDetailVO 新增 reviewed 字段供前端消费；U-024 回归脚本订单列表+评价页 18/18 PASS）
+- ✅ B：M4 前中低缺陷批量修复（2026-08-29：Login.vue 移除 2005 幽灵码分支、App.vue 购物车徽标改真实角标、Checkout.vue/OrderDetail.vue 支付与下单错误静默兜底 ElMessage、auth.js getProfile/updateProfile silent 透传；`frontend-user npm run build` 通过）
+- ✅ C：构建收尾（2026-08-29：admin-web npm install + build 通过；dev 端口统一 5174 与 C5 交互验收实测一致，C1/X-09 端口描述同步修正）
+- ✅ D：构建复核（2026-08-29：mobile-app 高缺陷改动 `build:h5` 通过，未引入语法回归）
 - ⬜ 文档补全与答辩材料准备（全员）
   - ✅ AI 交互记录归档：A/B/C/D 全部完成（`A6/B6/C6/D6-AI交互记录.md`，2026-08-29）
   - ✅ 演示截图补拍：D M3 联调截图 3 张（x9-index/x9-cart/x9-mine）+ C 后台截图 2 张（c6-admin-audit/c6-merchant-dashboard）+ B 联调截图 5 张（m3-*），共 10 张归档
