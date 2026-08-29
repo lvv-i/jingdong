@@ -36,7 +36,7 @@
             <router-link to="/login?tab=register" class="register-link">免费注册</router-link>
           </template>
           <router-link to="/cart" class="cart-entry">
-            <el-badge :value="0" :hidden="true">
+            <el-badge :value="cartCount" :hidden="cartCount === 0">
               <el-icon :size="20"><ShoppingCart /></el-icon>
             </el-badge>
             购物车
@@ -52,13 +52,30 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, watch, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { getCartItems } from '@/api/cart'
 
+const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 const searchKeyword = ref('')
+const cartCount = ref(0)
+
+// 购物车角标（U-008 实时件数；未登录不显示）
+async function loadCartCount() {
+  if (!userStore.isLoggedIn) {
+    cartCount.value = 0
+    return
+  }
+  try {
+    const list = await getCartItems({ silent: true })
+    cartCount.value = (Array.isArray(list) ? list : []).reduce((sum, i) => sum + (Number(i.quantity) || 0), 0)
+  } catch {
+    cartCount.value = 0
+  }
+}
 
 function goSearch() {
   const kw = searchKeyword.value.trim()
@@ -69,6 +86,11 @@ function handleLogout() {
   userStore.logout()
   router.push('/')
 }
+
+watch(() => userStore.isLoggedIn, () => loadCartCount())
+// 路由变化时刷新角标（加购/删购物车后返回、登录跳转等场景）
+watch(() => route.path, () => loadCartCount())
+onMounted(() => loadCartCount())
 </script>
 
 <style scoped>

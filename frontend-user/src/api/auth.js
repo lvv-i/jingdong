@@ -24,11 +24,11 @@ export function smsLogin(data, config) {
 }
 
 /** U-001 当前用户资料：GET → data:{id,username,phone,role}；错误 1002 */
-export function getProfile() {
-  return request.get('/users/profile')
+export function getProfile(config) {
+  return request.get('/users/profile', config)
 }
 
 /** U-002 修改资料：{phone, oldPassword?, newPassword?}（改密时原密码错误抛 2003） */
-export function updateProfile(data) {
-  return request.put('/users/profile', data)
+export function updateProfile(data, config) {
+  return request.put('/users/profile', data, config)
 }

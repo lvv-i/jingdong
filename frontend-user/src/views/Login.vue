@@ -203,7 +203,7 @@ async function handlePwdLogin() {
   }
 }
 
-/** P-008 短信验证码登录（silent：2003/2005 表单级特殊文案） */
+/** P-008 短信验证码登录（silent：2003 表单级特殊文案；T5 文档所列 2005 为笔误，后端不产生） */
 async function handleSmsLogin() {
   try {
     await smsFormRef.value.validate()
@@ -215,8 +215,8 @@ async function handleSmsLogin() {
     const data = await smsLogin({ phone: smsForm.phone, smsCode: smsForm.smsCode }, { silent: true })
     onLoginSuccess(data)
   } catch (e) {
+    // 2003 验证码错误或过期（SmsCodeService 使用 LOGIN_FAILED=2003）
     if (e.code === 2003) ElMessage.error('手机号或验证码错误')
-    else if (e.code === 2005) ElMessage.error('验证码错误或已过期')
   } finally {
     smsLoading.value = false
   }
