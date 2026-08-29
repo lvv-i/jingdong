@@ -34,7 +34,7 @@
         </el-form-item>
       </el-form>
       <div class="login-tips">
-        <p>演示账号（seed.sql）：商家 merchant001 / 管理员 admin001，密码 123456</p>
+        <p>演示账号（seed.sql）：商家 merchant001 / 管理员 admin001，密码与账号名相同（如 merchant001）</p>
         <p>登录后按角色进入对应后台：MERCHANT → 商家后台，ADMIN → 管理员后台</p>
       </div>
     </el-card>
