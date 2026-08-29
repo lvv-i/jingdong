@@ -128,6 +128,10 @@ export default {
 		this.orderIdFromOnLoad = options?.id || "";
 		this.loadDetail();
 	},
+	// 从评价/退款页返回时刷新（reviewed 状态等可能已变化）
+	onShow() {
+		if (this.orderId && this.detail) this.loadDetail();
+	},
 	methods: {
 		async loadDetail() {
 			this.loadFailed = false;
