@@ -29,11 +29,11 @@ public class RefundController {
 
     private final RefundService refundService;
 
-    /** U-018 发起退款（订单 status∈{PAID,SHIPPED,COMPLETED}；无进行中售后单；金额≤实付） */
+    /** U-018 发起退款（订单 status∈{PAID,SHIPPED,COMPLETED}；无进行中售后单；金额≤实付）
+     *  T5 v1.1 修正：data 含 refundNo */
     @PostMapping
     public ApiResult<Map<String, Object>> create(@Valid @RequestBody RefundCreateDTO dto) {
-        Long id = refundService.create(dto);
-        return ApiResult.success(java.util.Map.of("refundId", id, "status", "REFUNDING"));
+        return ApiResult.success(refundService.create(dto));
     }
 
     /** U-019 用户售后列表（仅本人） */

@@ -1,10 +1,9 @@
 package com.example.shop.service;
 
+import com.example.shop.common.PageResult;
 import com.example.shop.dto.CartAddDTO;
 import com.example.shop.dto.CartUpdateDTO;
 import com.example.shop.vo.CartItemVO;
-
-import java.util.List;
 
 /**
  * 购物车服务
@@ -12,8 +11,8 @@ import java.util.List;
  */
 public interface CartService {
 
-    /** U-008 购物车列表（数据范围：仅本人） */
-    List<CartItemVO> list();
+    /** U-008 购物车列表（T5 通用约定：data 为 {list, total}） */
+    PageResult<CartItemVO> list();
 
     /** U-009 加购（仅 ON_SALE 可加购；重复商品累加数量） */
     Long add(CartAddDTO dto);

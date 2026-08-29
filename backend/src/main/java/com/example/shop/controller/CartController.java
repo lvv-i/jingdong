@@ -1,6 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.common.ApiResult;
+import com.example.shop.common.PageResult;
 import com.example.shop.dto.CartAddDTO;
 import com.example.shop.dto.CartUpdateDTO;
 import com.example.shop.service.CartService;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,9 +29,9 @@ public class CartController {
 
     private final CartService cartService;
 
-    /** U-008 购物车列表 */
+    /** U-008 购物车列表（T5 通用约定：data 为 {list, total}） */
     @GetMapping
-    public ApiResult<List<CartItemVO>> list() {
+    public ApiResult<PageResult<CartItemVO>> list() {
         return ApiResult.success(cartService.list());
     }
 

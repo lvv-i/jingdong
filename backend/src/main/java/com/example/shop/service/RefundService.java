@@ -16,8 +16,9 @@ import com.example.shop.vo.RefundListItemVO;
  */
 public interface RefundService {
 
-    /** U-018 发起退款（订单 status∈{PAID,SHIPPED,COMPLETED}；无进行中售后单；金额≤实付） */
-    Long create(RefundCreateDTO dto);
+    /** U-018 发起退款（订单 status∈{PAID,SHIPPED,COMPLETED}；无进行中售后单；金额≤实付）
+     * @return Map {refundId, refundNo, status}（T5 v1.1 修正） */
+    java.util.Map<String, Object> create(RefundCreateDTO dto);
 
     /** U-019 用户售后列表（仅本人） */
     PageResult<RefundListItemVO> listUser(PageQuery pageQuery, String status);

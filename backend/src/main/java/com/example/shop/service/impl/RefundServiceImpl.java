@@ -60,7 +60,7 @@ public class RefundServiceImpl implements RefundService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long create(RefundCreateDTO dto) {
+    public java.util.Map<String, Object> create(RefundCreateDTO dto) {
         Long userId = UserContext.requireUserId();
         // 4001 订单归属本人
         Order order = orderMapper.selectById(dto.getOrderId());
@@ -98,7 +98,9 @@ public class RefundServiceImpl implements RefundService {
         refund.setReason(dto.getReason());
         refund.setStatus(RefundStatus.REFUNDING.name());
         refundRequestMapper.insert(refund);
-        return refund.getId();
+        return java.util.Map.of("refundId", refund.getId(),
+                "refundNo", refund.getRefundNo(),
+                "status", RefundStatus.REFUNDING.name());
     }
 
     @Override

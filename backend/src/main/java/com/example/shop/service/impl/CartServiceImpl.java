@@ -3,6 +3,7 @@ package com.example.shop.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.shop.common.BusinessException;
 import com.example.shop.common.ErrorCode;
+import com.example.shop.common.PageResult;
 import com.example.shop.dto.CartAddDTO;
 import com.example.shop.dto.CartUpdateDTO;
 import com.example.shop.entity.CartItem;
@@ -31,21 +32,21 @@ public class CartServiceImpl implements CartService {
     private final ProductMapper productMapper;
 
     @Override
-    public List<CartItemVO> list() {
+    public PageResult<CartItemVO> list() {
         Long userId = UserContext.requireUserId();
         List<CartItem> items = cartItemMapper.selectList(new LambdaQueryWrapper<CartItem>()
                 .eq(CartItem::getUserId, userId)
                 .orderByDesc(CartItem::getUpdatedAt));
-        return items.stream().map(item -> {
+        List<CartItemVO> list = items.stream().map(item -> {
             Product product = productMapper.selectById(item.getProductId());
             if (product == null) {
-                // 商品已删除：条目失效（前端展示为失效项）
                 return new CartItemVO(item.getId(), item.getProductId(), "商品已失效",
                         null, item.getQuantity(), item.getSelected(), 0);
             }
             return new CartItemVO(item.getId(), item.getProductId(), product.getTitle(),
                     product.getPrice(), item.getQuantity(), item.getSelected(), product.getStock());
         }).toList();
+        return PageResult.of(list, list.size());
     }
 
     @Override
