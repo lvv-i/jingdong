@@ -35,6 +35,18 @@
 			"style": {
 				"navigationBarTitleText": "商品详情"
 			}
+		},
+		{
+			"path": "pages/checkout/checkout",
+			"style": {
+				"navigationBarTitleText": "确认订单"
+			}
+		},
+		{
+			"path": "pages/order/pay",
+			"style": {
+				"navigationBarTitleText": "订单支付"
+			}
 		}
 	],
 	"tabBar": {

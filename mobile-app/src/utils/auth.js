@@ -51,9 +51,13 @@ export function logout() {
 
 /**
  * 受保护页面清单：访问这些页面必须登录（未登录跳 /pages/login/login）
- * X1 阶段：购物车；X3-X4 追加：订单/结算/售后/地址/消息
+ * X1：购物车；X3：结算/支付；X4 追加：订单/售后/地址/消息
  */
-const PROTECTED_ROUTES = ["pages/cart/cart"];
+const PROTECTED_ROUTES = [
+	"pages/cart/cart",
+	"pages/checkout/checkout",
+	"pages/order/pay",
+];
 
 export const authGuardMixin = {
 	onShow() {
