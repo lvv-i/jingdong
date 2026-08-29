@@ -3,8 +3,11 @@
  */
 import { get, put, del } from "../utils/request";
 
-// U-008 购物车列表：后端实际返回裸数组 item[]（T5 文档写 {list,total}，页面已按裸数组消费）
-export const getCartItems = (silent) => get("/api/cart/items", null, silent);
+// U-008 购物车列表：T5 v1.1 后端返回 {list,total}；兼容历史裸数组形态，统一归一化为数组
+export const getCartItems = (silent) =>
+	get("/api/cart/items", null, silent).then((d) =>
+		Array.isArray(d) ? d : (d && d.list) || []
+	);
 
 /**
  * U-010 修改购物车项
