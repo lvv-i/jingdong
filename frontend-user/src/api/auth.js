@@ -18,7 +18,7 @@ export function sendSmsCode(phone, config) {
   return request.post('/users/sms-code', { phone }, config)
 }
 
-/** P-008 短信验证码登录：{phone, smsCode} → 同 P-002；错误 1001/2003/2005 */
+/** P-008 短信验证码登录：{phone, smsCode} → 同 P-002；错误 1001/2003（验证码错误或过期）/2004（账号禁用）；注：T5 文档列的 2005 为笔误，后端不产生 */
 export function smsLogin(data, config) {
   return request.post('/users/login/sms', data, config)
 }
@@ -28,7 +28,7 @@ export function getProfile() {
   return request.get('/users/profile')
 }
 
-/** U-002 修改资料：{phone, password?}（改密需原密码校验） */
+/** U-002 修改资料：{phone, oldPassword?, newPassword?}（改密时原密码错误抛 2003） */
 export function updateProfile(data) {
   return request.put('/users/profile', data)
 }

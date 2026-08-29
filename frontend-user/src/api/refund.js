@@ -2,9 +2,9 @@
 import request from './request'
 
 /**
- * U-018 发起退款（订单 status∈{PAID,SHIPPED,COMPLETED}；5002 状态不允许/5003 重复/5004 金额非法/5006 原因必填）
+ * U-018 发起退款（订单 status∈{PAID,SHIPPED,COMPLETED}；4001 订单不存在/非本人/5002 状态不允许/5003 重复/5004 金额非法/5006 原因必填）
  * @param {Object} data {orderId, reason, refundAmount}
- * @returns data: {refundId, status: 'REFUNDING'}
+ * @returns data: {refundId, status: 'REFUNDING'}（注：T5 文档另写 refundNo，后端实际不返回）
  */
 export function createRefund(data, config) {
   return request.post('/refunds', data, config)
