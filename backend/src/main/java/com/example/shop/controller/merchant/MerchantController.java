@@ -46,6 +46,13 @@ public class MerchantController {
         return ApiResult.success();
     }
 
+    /** M-002b 重新提交入驻审核：REJECTED → PENDING_AUDIT（T1 3.2） */
+    @PostMapping("/shop/resubmit")
+    public ApiResult<Void> resubmitShop() {
+        merchantService.resubmitShop();
+        return ApiResult.success();
+    }
+
     /** M-003 创建商品（DRAFT；images 写入 product_images） */
     @PostMapping("/products")
     public ApiResult<Map<String, Object>> createProduct(@Valid @RequestBody ProductSaveDTO dto) {
@@ -68,7 +75,7 @@ public class MerchantController {
         return ApiResult.success();
     }
 
-    /** M-006 提交上架：DRAFT → PENDING_ON_SALE */
+    /** M-006 提交上架：DRAFT/OFF_SALE → PENDING_ON_SALE */
     @PostMapping("/products/{id}/submit")
     public ApiResult<Void> submitProduct(@PathVariable Long id) {
         merchantService.submitProduct(id);
