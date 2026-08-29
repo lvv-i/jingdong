@@ -41,3 +41,30 @@ export function supportNativeBadge() {
 	const p = getPlatform();
 	return p === "mp-weixin" || p === "app-plus";
 }
+
+/**
+ * 设置 tabBar 某项徽标（支持原生徽标的端）
+ * @param {number} index tabBar 索引
+ * @param {string|number} text 徽标文案，空字符串清除
+ */
+export function setTabBarBadge(index, text) {
+	if (!supportNativeBadge()) return;
+	const textStr = String(text || "");
+	if (textStr) {
+		uni.setTabBarBadge({ index, text: textStr }).catch(() => {});
+	} else {
+		uni.removeTabBarBadge({ index }).catch(() => {});
+	}
+}
+
+/**
+ * 条件编译差异清单（X5 端适配收尾）
+ * - H5：底部结算栏/操作栏需避让 tabBar（条件编译 padding-bottom）
+ * - 小程序：native 分享 API、微信登录按钮
+ * - App：原生推送通知
+ *
+ * 本文件集中管理端差异，页面样式中使用以下条件编译：
+ *   #ifdef H5        → 底部栏 padding-bottom: calc(X + 50px)
+ *   #ifdef MP-WEIXIN → 微信原生能力
+ *   #ifdef APP-PLUS  → App 原生能力
+ */

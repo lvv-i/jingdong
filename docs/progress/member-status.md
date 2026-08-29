@@ -106,10 +106,10 @@
 | X1 | 工程初始化 + 登录注册（P-001/P-002/P-007/P-008） | ✅ | `docs/phase4/member-d/deliverables/X-01-工程初始化.md`（mobile-app uni-app CLI 工程 + 双登录 + 守卫，browser-use 实测） | 2026-08-15 |
 | X2 | 商品浏览链路（P-003~P-006） | ✅ | `docs/phase4/member-d/deliverables/X-02-商品浏览链路.md`（首页/分类/详情三页 + mock 数据 browser-use 实测 6 场景） | 2026-08-15 |
 | X3 | 购物与下单链路（U-003/U-008~U-016） | ✅ | `docs/phase4/member-d/deliverables/X-03-购物与下单链路.md`（购物车/结算/支付三页 + mock 状态机 browser-use 实测 13 场景） | 2026-08-15 |
-| X4 | 订单与售后链路（U-013~U-025） | ⬜ | `docs/phase4/member-d/deliverables/X-04-订单与售后链路.md` | - |
-| X5 | 我的/地址 + 端适配 + 全链路自测（U-001~U-007） | ⬜ | `docs/phase4/member-d/deliverables/X-05-端适配与自测.md` | - |
+| X4 | 订单与售后链路（U-013~U-025） | ✅ | `docs/phase4/member-d/deliverables/X-04-订单与售后链路.md`（订单列表 6 Tab + 详情 5 态操作栏 + 售后 6 态流转 + 评价 1-5 星 + 消息已读/全部已读，build 通过 + browser-use 实测） | 2026-08-15 |
+| X5 | 我的/地址 + 端适配 + 全链路自测（U-001~U-007） | ✅ | `docs/phase4/member-d/deliverables/X-05-端适配与自测.md`（我的页功能入口 + 个人资料 + 地址增删改默认 + 端适配收尾 + 17 页全链路 15 步自测 + 空状态 9 项巡检全通过） | 2026-08-15 |
 
-**D 第四阶段完成率：3 / 5。任务书见 `docs/phase4/member-d/tasks/X1-X5-移动端开发任务书.md`（2026-08-15 X1~X3 完成：mobile-app 工程 + 登录注册 + tabBar 骨架 + 未登录守卫 + 首页/分类/商品详情/评价列表（P-003~006 + 3001/3002 兜底 + 图片懒加载）+ 购物车/结算/支付下单链路（U-003/008~016 + 4008 防重复），request 层 silent 静默降级；build:h5 通过；browser-use 实测（XHR mock 状态机 13 场景全通过）；真实 token 联调待 M3）**
+**D 第四阶段完成率：5 / 5（100%）✅。任务书见 `docs/phase4/member-d/tasks/X1-X5-移动端开发任务书.md`（2026-08-15 X1~X5 全部完成：17 页注册（覆盖 D-01 全部页面清单），订单 6 Tab + T1 按钮显隐、售后 6 态流转闭环、消息已读/全部已读、地址增删改查设默认、端差异适配收尾（platform.js 徽标/安全区/条件编译清单）、build:h5 通过、browser-use 实测（XHR mock 全链路 15 步）；真实 token 联调待 M3）**
 
 ---
 

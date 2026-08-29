@@ -57,6 +57,15 @@ const PROTECTED_ROUTES = [
 	"pages/cart/cart",
 	"pages/checkout/checkout",
 	"pages/order/pay",
+	"pages/order/list",
+	"pages/order/detail",
+	"pages/order/review",
+	"pages/refund/list",
+	"pages/refund/apply",
+	"pages/notice/list",
+	"pages/mine/address",
+	"pages/mine/address-edit",
+	"pages/mine/profile",
 ];
 
 export const authGuardMixin = {

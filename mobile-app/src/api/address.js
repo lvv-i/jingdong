@@ -1,7 +1,33 @@
 /**
- * 收货地址接口模块（T5 U-003；U-001~U-002 增删改归 X5 我的/地址链路）
+ * 收货地址接口模块（T5 U-003~U-007）
  */
-import { get } from "../utils/request";
+import { get, post, put, del } from "../utils/request";
 
 // U-003 地址列表：返回 {list, total}（item: {id, receiver, phone, province, city, district, detail, isDefault 0/1}）
 export const getAddresses = (silent) => get("/api/addresses", null, silent);
+
+/**
+ * U-004 新增地址
+ * @param {Object} data {receiver, phone, province, city, district, detail, isDefault 0/1}
+ * @returns {Promise<{id}>}
+ * 错误码：1001/2006（超 20 个）
+ */
+export const addAddress = (data) => post("/api/addresses", data);
+
+/**
+ * U-005 修改地址
+ * 错误码：1001/2005（校验归属本人）
+ */
+export const updateAddress = (id, data) => put(`/api/addresses/${id}`, data);
+
+/**
+ * U-006 删除地址（软删除）
+ * 错误码：2005
+ */
+export const deleteAddress = (id) => del(`/api/addresses/${id}`);
+
+/**
+ * U-007 设置默认地址
+ * 错误码：2005
+ */
+export const setDefaultAddress = (id) => put(`/api/addresses/${id}/default`);
