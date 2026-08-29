@@ -3,8 +3,11 @@
  */
 import { get, post, put, del } from "../utils/request";
 
-// U-003 地址列表：后端实际返回裸数组 item[]（T5 文档写 {list,total}，页面已按裸数组消费）
-export const getAddresses = (silent) => get("/api/addresses", null, silent);
+// U-003 地址列表：T5 v1.1 后端返回 {list,total}；兼容历史裸数组形态，统一归一化为数组
+export const getAddresses = (silent) =>
+	get("/api/addresses", null, silent).then((d) =>
+		Array.isArray(d) ? d : (d && d.list) || []
+	);
 
 /**
  * U-004 新增地址
