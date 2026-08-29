@@ -1,0 +1,25 @@
+# =============================================================
+# H2 内嵌数据库配置（本地演示 / 快速启动模式）
+# 使用方式：mvn spring-boot:run -Dspring-boot.run.profiles=h2
+# 或：java -jar target/jd-shop-1.0.0.jar --spring.profiles.active=h2
+# 说明：MODE=MySQL 最大兼容 MySQL 语法（反引号/AUTO_INCREMENT 等）
+#       ;DB_CLOSE_DELAY=-1 保持数据库直到 JVM 退出
+#       ;DATABASE_TO_UPPER=false 保持表名列名原大小写
+# =============================================================
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./data/jd_shop;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/h2-schema.sql
+      data-locations: classpath:sql/h2-seed.sql
+      continue-on-error: false
