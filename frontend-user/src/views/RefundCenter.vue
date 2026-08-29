@@ -230,7 +230,8 @@ async function handleCreateRefund() {
       },
       { silent: true }
     )
-    ElMessage.success(`退款申请已提交（单号 ${data.refundId}）`)
+    // 双兼容：新后端返回 refundNo，旧 jar 返回 refundId（A 772ddec 已改 T5 契约）
+    ElMessage.success(`退款申请已提交（单号 ${data.refundNo || data.refundId}）`)
     createVisible.value = false
     activeStatus.value = ''
     page.value = 1

@@ -92,6 +92,7 @@
   - 空购物车下单返回 1001「请勾选要结算的商品」（参数校验先拦截，4003 未达；可接受）
   - ✅ 已修复（D）：H2 初始化中文乱码——application-h2.yml 缺 `spring.sql.init.encoding: UTF-8`，Windows GBK 读 UTF-8 seed 脚本入库乱码；已加配置并重建 H2 数据验证通过
   - ✅ 已闭环（A↔D）：A 提交 772ddec 将 U-003/U-008 改回 T5 契约 {list,total}；D 前端 cart/address/checkout 共 4 处改双兼容解包，新旧 jar 均可正常渲染
+  - ✅ 已闭环（A↔B，查漏修复）：B 前端同步 5 处双兼容——Cart/Checkout×2/AddressList 裸数组解包×4（U-003/U-008）+ RefundCenter 单号取 refundNo||refundId（U-018）；`npm run build` 通过
 - ⬜ 文档补全与答辩材料准备（全员）
   - ⬜ AI 交互记录归档：C 已完成（`C6-AI交互记录.md`）；A/B/D 待归档（作业"交互过程 30 分"备料）
   - ⬜ 演示截图补拍：D M3 联调截图（浏览器截图工具超时，Win+Shift+S 补拍方案见 X-09）；C 后台截图未归档

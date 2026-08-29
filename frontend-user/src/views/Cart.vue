@@ -114,7 +114,9 @@ const selectedAmount = computed(() =>
 async function loadCart() {
   loading.value = true
   try {
-    items.value = await getCartItems({ silent: true })
+    const data = await getCartItems({ silent: true })
+    // 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 772ddec 已按 T5 契约修复）
+    items.value = Array.isArray(data) ? data : (data && data.list) || []
   } catch {
     items.value = []
   } finally {
