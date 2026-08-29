@@ -3,7 +3,7 @@
  */
 import { get, post, put, del } from "../utils/request";
 
-// U-003 地址列表：后端实际返回裸数组 item[]（T5 文档写 {list,total}，页面已按裸数组消费）
+// U-003 地址列表：T5 契约 data 为 {list,total}（后端已对齐，页面按 data.list 消费）
 export const getAddresses = (silent) => get("/api/addresses", null, silent);
 
 /**

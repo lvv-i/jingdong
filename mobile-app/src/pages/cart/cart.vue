@@ -114,7 +114,8 @@ export default {
 			this.loadFailed = false;
 			try {
 				const data = await getCartItems(true);
-				this.list = data || [];
+				// U-008 T5 契约：data 为 {list, total}（后端已对齐）
+				this.list = (data && data.list) || [];
 			} catch (e) {
 				this.list = [];
 				this.loadFailed = true;

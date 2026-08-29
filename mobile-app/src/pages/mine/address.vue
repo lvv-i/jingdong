@@ -63,7 +63,8 @@ export default {
 			this.loadFailed = false;
 			try {
 				const data = await getAddresses(true);
-				this.list = data || [];
+				// U-003 T5 契约：data 为 {list, total}（后端已对齐）
+				this.list = (data && data.list) || [];
 			} catch (e) {
 				this.loadFailed = true;
 			} finally { this.loading = false; }

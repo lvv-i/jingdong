@@ -110,11 +110,12 @@ const selectedAmount = computed(() =>
   items.value.filter((i) => i.selected === 1).reduce((s, i) => s + i.price * i.quantity, 0)
 )
 
-/** U-008 购物车列表 */
+/** U-008 购物车列表（T5 契约：data 为 {list, total}，后端已对齐） */
 async function loadCart() {
   loading.value = true
   try {
-    items.value = await getCartItems({ silent: true })
+    const data = await getCartItems({ silent: true })
+    items.value = data?.list || []
   } catch {
     items.value = []
   } finally {

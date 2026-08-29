@@ -3,7 +3,7 @@
  */
 import { get, put, del } from "../utils/request";
 
-// U-008 购物车列表：后端实际返回裸数组 item[]（T5 文档写 {list,total}，页面已按裸数组消费）
+// U-008 购物车列表：T5 契约 data 为 {list,total}（后端已对齐，页面按 data.list 消费）
 export const getCartItems = (silent) => get("/api/cart/items", null, silent);
 
 /**

@@ -1,7 +1,7 @@
 // 收货地址接口（U-003~U-007，需登录；W3 提供 U-003 供结算页，W5 补齐 U-004~007）
 import request from './request'
 
-/** U-003 地址列表 */
+/** U-003 地址列表（T5 契约：data 为 {list, total}） */
 export function getAddresses(config) {
   return request.get('/addresses', config)
 }

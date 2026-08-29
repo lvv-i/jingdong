@@ -1,7 +1,7 @@
 // 购物车接口（U-008~U-011，需登录）
 import request from './request'
 
-/** U-008 购物车列表（当前价实时读取） */
+/** U-008 购物车列表（T5 契约：data 为 {list, total}；当前价实时读取） */
 export function getCartItems(config) {
   return request.get('/cart/items', config)
 }
