@@ -151,8 +151,9 @@ export default {
 					getAddresses(true),
 					getCartItems(true),
 				]);
-				this.addresses = addrData || [];
-				const list = cartData || [];
+				// 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 772ddec 已改回 T5 契约）
+				this.addresses = Array.isArray(addrData) ? addrData : (addrData && addrData.list) || [];
+				const list = Array.isArray(cartData) ? cartData : (cartData && cartData.list) || [];
 				this.items = list.filter((i) => this.ids.includes(i.id));
 				// 默认地址优先，否则第一条
 				const def = this.addresses.find((a) => a.isDefault === 1);

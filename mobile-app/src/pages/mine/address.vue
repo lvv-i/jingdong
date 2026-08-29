@@ -63,7 +63,8 @@ export default {
 			this.loadFailed = false;
 			try {
 				const data = await getAddresses(true);
-				this.list = data || [];
+				// 双兼容：旧 jar 裸数组 / 新后端 PageResult{list,total}（A 772ddec 已改回 T5 契约）
+				this.list = Array.isArray(data) ? data : (data && data.list) || [];
 			} catch (e) {
 				this.loadFailed = true;
 			} finally { this.loading = false; }
