@@ -95,7 +95,8 @@
   - ✅ 已修复（D）：H2 初始化中文乱码——application-h2.yml 缺 `spring.sql.init.encoding: UTF-8`，Windows GBK 读 UTF-8 seed 脚本入库乱码；已加配置并重建 H2 数据验证通过
   - ✅ 已闭环（A↔B/D）：U-003/U-008 → `{list,total}`、U-018 → refundNo（A fbe7b71/772ddec 修复）；B 前端 5 处 + D 前端 cart/address/checkout 双兼容解包，新旧 jar 均可正常渲染
 - 🟦 D 牵头功能测试与回归（X-08 用例清单已备料；待全员回归执行；M4 页面级走查轮补截图）
-- ⬜ 答辩环境加固（一键启动脚本 + jar 打包验证）
+- ✅ A/D：答辩环境加固（2026-08-30：`start-all.bat` 一键启动脚本（MySQL → 后端 jar → 用户端 5173 → 后台 5174 → 移动 H5 + 停止清理）+ 后端 SpaFallbackController/WebConfig SPA 静态托管 + README 启动指南；种子图片 placehold.co 替换 + mobile-app 京冬化命名 + `rebuild-mp.bat`；后端 jar 12:52 重建运行中 + 三端构建复核全部通过）
+- ✅ A/D：收尾全量检查（2026-08-30：git 工作区清理、临时文件删除、四件套同步、分支合并准备）
 - ✅ A/D：U-024 评价高缺陷修复（2026-08-29：mobile-app review.vue prepareReview 自动取首个未评价明细 + detail.vue onShow 刷新评价态 + address.vue 编辑回显 jd_edit_addr；后端 OrderListItemVO/OrderDetailVO 新增 reviewed 字段供前端消费；U-024 回归脚本订单列表+评价页 18/18 PASS）
 - ✅ B：M4 前中低缺陷批量修复（2026-08-29：Login.vue 移除 2005 幽灵码分支、App.vue 购物车徽标改真实角标、Checkout.vue/OrderDetail.vue 支付与下单错误静默兜底 ElMessage、auth.js getProfile/updateProfile silent 透传；`frontend-user npm run build` 通过）
 - ✅ C：构建收尾（2026-08-29：admin-web npm install + build 通过；dev 端口统一 5174 与 C5 交互验收实测一致，C1/X-09 端口描述同步修正）

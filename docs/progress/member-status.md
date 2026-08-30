@@ -56,8 +56,9 @@
 | A-T5 | T5 接口清单校准 6 处（U-002/U-004/U-010/U-012 + P-008/U-024 幽灵码 + M-002/M-006 REJECTED 重提），版本记录追加 v1.1 | ✅ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v1.1 变更记录行） | 2026-08-29 |
 | A-T1v1.2 | T1 3.2「修改资料后重新提交」语义完善：M-002b 支持可选请求体（ShopResubmitDTO 全可选，携带字段先更新再重提，空 body 向后兼容，3004 校验 + 审计 remark 区分） | ✅ | `dto/ShopResubmitDTO.java`（新建）+ `service/MerchantService.java` + `service/impl/MerchantServiceImpl.java` + `controller/merchant/MerchantController.java`；MySQL 真实环境 16 步 E2E 全绿 + 中文写入 SQL 字节级验证；修复 shop2 双重编码历史数据 | 2026-08-29 |
 | A-T5v1.2 | T5 接口清单升版 v1.2（M-002b 请求参数改为可选 {shopName?, categoryId?, description?} + 错误码 3004） | ✅ | `docs/phase1/member-a/deliverables/05-接口清单v1.0.md`（v1.2 版本记录行） | 2026-08-29 |
+| A-Deploy | 答辩环境加固：一键启动脚本 + SPA 静态托管 | ✅ | `start-all.bat`（MySQL → 后端 jar → 用户端 5173 → 后台 5174 → 移动 H5 五步拉起 + 停止清理）+ `config/SpaFallbackController.java`（新建）+ `config/WebConfig.java`（静态资源映射）+ README 启动指南；jar 重建运行验证 | 2026-08-30 |
 
-**A 第五阶段完成率：6 / 6（100%）✅（2026-08-29 全部闭环）**
+**A 第五阶段完成率：7 / 7（100%）✅（2026-08-30 全部闭环）**
 
 ---
 
@@ -145,6 +146,7 @@
 | X9 | 联调自测脚本备料（③ 第五阶段备料） | ✅ | `docs/phase4/member-d/deliverables/X-09-联调自测脚本备料.md`（25 步接口级自测 + 5 步页面级自测 + 三端闭环 10 分钟演示脚本 + 截图归档清单）。早期会话过程记录：`X-09-演示脚本与截图说明.md` | 2026-08-29 |
 | 小程序验收 | 产物重新构建 + 结构验收 | ✅ | `dist/build/mp-weixin`（2026-08-29 重新构建含双兼容修复；app.json 17 页 + tabBar 4 项 + 组件/接口层齐全）+ 截图 3 张（x9-index/x9-cart/x9-mine）+ `D6-AI交互记录.md`；GUI 验收待微信开发者工具安装后执行 | 2026-08-29 |
 | X10 | M4 前 U-024 评价/地址高缺陷修复 | ✅ | `review.vue`（prepareReview 自动取首个未评价明细 + 非 COMPLETED/已评价阻断）+ `detail.vue`（onShow 刷新评价态）+ `address.vue`（编辑回显 jd_edit_addr）；`build:h5` 通过 | 2026-08-29 |
+| X11 | 京冬化命名与产物重建（答辩收尾） | ✅ | `App.vue`/`manifest.json`/`pages.json` 京冬化命名规避品牌 + `rebuild-mp.bat` 重建脚本 + `build:mp-weixin`/`build:h5` 重建通过；种子图片 placehold.co 替换 | 2026-08-30 |
 
 **D 第四阶段完成率：5 / 5（100%）✅ + 补充 X6（2026-08-29 契约对齐）+ M3 收尾 X7/X8/X9（2026-08-29 联调验收）。任务书见 `docs/phase4/member-d/tasks/X1-X5-移动端开发任务书.md`（2026-08-15 X1~X5 全部完成：17 页注册（覆盖 D-01 全部页面清单），订单 6 Tab + T1 按钮显隐、售后 6 态流转闭环、消息已读/全部已读、地址增删改查设默认、端差异适配收尾（platform.js 徽标/安全区/条件编译清单）、build:h5 通过、browser-use 实测（XHR mock 全链路 15 步）。X6（2026-08-29）：修复 6 处契约运行时代码（U-003/U-008 裸数组解包×4、U-012 错误分支重映射、U-002 newPassword 字段）+ 注释修正 4 处；`build:mp-weixin` 复核通过。X7（2026-08-29）：M3 真实联调完成——25 步接口级全链路闭环（登录/1002/1003/加购/裸数组验证/下单/支付/4008/发货/收货/评价/退款/拒绝/介入/裁决/审计日志/3001/4001/5003）、H5 browser-use 页面级 5 页实测通过、发现并修复 H2 中文乱码配置缺陷（application-h2.yml 加 encoding: UTF-8 + 重建数据验证）；X8/X9（2026-08-29）：测试基线复核与 45 条测试用例清单、联调自测脚本备料完成。本会话早期并行产出的 X-07/08/09 过程记录版（用例基线/回归记录/演示脚本）保留归档）**
 
