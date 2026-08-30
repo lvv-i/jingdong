@@ -40,6 +40,7 @@
 > 2026-08-30 实验报告与合并收尾轮（A/D）：按作业要求撰写根目录《实验报告-成员A与D.md》七部分（功能介绍/交互概要/系统设计/测试调试/使用示例截图/团队合作 git 提交截图 4 时间点/交互完整过程，引用 m3-/x9- 截图 5 张 + 新渲染 git-log 截图 4 张）；develop 合并 main 双分支推送远端同步（49d6b0e）；四件套终更。剩余：M4 页面级走查补截图、D 牵头全端回归（按 X-08 用例清单）、小程序 GUI 验收（待工具安装）、答辩。
 > 2026-08-30 局域网访问与报告移交轮（A/D）：三端 dev server host 0.0.0.0（同一局域网内其他电脑可访问）+ mobile-app H5 动态 baseURL（API 自动指向 http://访问IP:8080）+ start-all.bat 防火墙放行（5173/5174/5175/8080）+ 局域网 IP 提示 + README 局域网小节 + 启动方式.txt 三方式定稿；端到端验证全通过（192.168.0.111:5173/5175 页面 200 + 5173 代理 API code=200 + 8080 直连 code=200）；《实验报告-成员A与D.md》按用户要求移交桌面 d:\Desktop（仓库内不再保留）；测试进程清理完毕。
 > 2026-08-30 公网网站部署轮（A/D）：用户网页版发布公网 `https://lvv-i.github.io/jingdong/`（GitHub Pages 免费托管，永久有效）+ 后端 API ngrok 固定域名隧道 `https://blooming-bulgur-rifling.ngrok-free.dev`；frontend-user 支持 `VITE_API_BASE`/`VITE_ROUTER_BASE` 构建参数 + axios 统一 `ngrok-skip-browser-warning` 头（绕过 ngrok 免费版警告页）+ 404.html SPA 回退（history 路由直链可用）+ 1002 登录跳转按 BASE_URL 适配子路径；新增脚本 `.qoder/start-ngrok.cjs`（隧道启动，token 本地文件 gitignore 不入库）+ `.qoder/deploy-gh-pages.ps1`（一键重新发布）；ngrok 注册（GitHub 登录，无短信验证）+ 静态域名启用；browser-use 端到端实测：首页分类/商品数据公网加载 + user001 公网登录成功（欢迎回来+购物车徽标）；Vercel/Netlify 方案因短信验证不可用弃用（临时文件已清理）。
+> 2026-08-30 实验报告 docx 修订轮（A/D）：桌面《实验报告-成员A与D》按作业要求重写为 Word docx 格式——全文单人视角（明确体现一人完成成员 A 与 D 两份角色全部工作：头部报告人说明、测试执行人/缺陷归属/截图记录人/协作机制/git 提交时间点全部改为“我（A 角色）/我（D 角色）”表述）、嵌入全部 18 张截图（m3- 2 + x9- 3 + x2/x3 9 + git-log 4，单文件 1.19MB 自包含）、三张 mermaid 图表格化（架构分层表/JWT 时序表/状态机流转表）、标题样式规范化（标题1×1 + 标题2×7 + 标题3×20）、超宽图片缩放适配；生成工具 Word COM（HTML 转换 + 样式后处理），桌面 .md 旧版已删除；四件套同步。
 
 ## 时间线（第一阶段细化）
 
