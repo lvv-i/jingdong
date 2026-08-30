@@ -1,0 +1,1 @@
+import{v as r}from"./index-Ck8QBAXK.js";function s(t){return r.get("/categories",t)}function c(t,e){return r.get("/products",{params:t,...e})}function n(t,e){return r.get(`/products/${t}`,e)}function g(t,e,o){return r.get(`/products/${t}/reviews`,{params:e,...o})}export{c as a,n as b,g as c,s as g};
