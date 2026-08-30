@@ -16,7 +16,7 @@ page {
 	height: 100%;
 }
 
-/* 京东红主色工具类 */
+/* 京冬红主色工具类 */
 .text-primary {
 	color: #c81623;
 }

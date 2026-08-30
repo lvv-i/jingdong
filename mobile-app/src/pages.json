@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "京东商城"
+				"navigationBarTitleText": "京冬商城"
 			}
 		},
 		{
@@ -129,7 +129,7 @@
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "京东商城",
+		"navigationBarTitleText": "京冬商城",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F5F5F5"
 	}

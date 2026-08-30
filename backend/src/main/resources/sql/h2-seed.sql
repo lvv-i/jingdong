@@ -33,26 +33,26 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `sort_order`, `status`) VAL
 
 -- 4. 商品
 INSERT INTO `products` (`id`, `merchant_id`, `category_id`, `title`, `sub_title`, `price`, `original_price`, `stock`, `sales_count`, `main_image`, `detail`, `status`) VALUES
-(101, 1, 11, '京造 X1 智能手机 8GB+256GB',       '骁龙8系芯片 5000mAh 长续航',   1999.00, 2499.00, 100, 328,  'https://img.example.com/p101.jpg', '<p>京造 X1 智能手机详情</p>',       'ON_SALE'),
-(102, 1, 11, '京造 X1 Pro 智能手机 12GB+512GB',  '旗舰影像 100W 快充',            3299.00, 3999.00, 50,  156,  'https://img.example.com/p102.jpg', '<p>京造 X1 Pro 详情</p>',           'ON_SALE'),
-(103, 1, 12, '轻薄笔记本电脑 14英寸',            '2.8K 屏 1.2kg 金属机身',        4599.00, 5299.00, 30,  89,   'https://img.example.com/p103.jpg', '<p>轻薄本详情</p>',                 'ON_SALE'),
-(104, 1, 13, '无线降噪耳机 Pro',                 '40dB 深度降噪 30 小时续航',      499.00,  699.00,  200, 512,  'https://img.example.com/p104.jpg', '<p>耳机详情</p>',                   'ON_SALE'),
-(105, 1, 21, '纯棉商务休闲衬衫',                 '免烫抗皱 四季款',               129.00,  199.00,  300, 1203, 'https://img.example.com/p105.jpg', '<p>衬衫详情</p>',                   'ON_SALE'),
-(106, 1, 22, '法式连衣裙 收腰显瘦',              '春夏新款 雪纺面料',             239.00,  329.00,  150, 678,  'https://img.example.com/p106.jpg', '<p>连衣裙详情</p>',                 'ON_SALE'),
-(107, 1, 31, '每日坚果礼盒 30包',                '混合坚果 独立小包',             89.90,   129.00,  500, 2230, 'https://img.example.com/p107.jpg', '<p>坚果详情</p>',                   'ON_SALE'),
-(108, 1, 32, '红富士苹果 5kg 装',                '脆甜多汁 产地直发',             49.90,   69.90,   400, 1890, 'https://img.example.com/p108.jpg', '<p>苹果详情</p>',                   'ON_SALE'),
-(109, 1, 41, '不粘炒锅 32cm',                    '少油烟 电磁炉通用',             159.00,  259.00,  200, 856,  'https://img.example.com/p109.jpg', '<p>炒锅详情</p>',                   'ON_SALE'),
-(110, 1, 42, '抽纸整箱 24包',                    '原生木浆 柔韧亲肤',             39.90,   59.90,   800, 3350, 'https://img.example.com/p110.jpg', '<p>抽纸详情</p>',                   'ON_SALE'),
-(111, 1, 11, '待上架演示商品',                    '审核流程演示',                  99.00,   NULL,    10,  0,    'https://img.example.com/p111.jpg', NULL,                               'PENDING_ON_SALE'),
-(112, 1, 11, '草稿演示商品',                      '商家草稿箱',                    199.00,  NULL,    10,  0,    'https://img.example.com/p112.jpg', NULL,                               'DRAFT'),
-(113, 1, 11, '已下架演示商品',                    '下架状态演示',                  299.00,  NULL,    10,  45,   'https://img.example.com/p113.jpg', NULL,                               'OFF_SALE');
+(101, 1, 11, '京造 X1 智能手机 8GB+256GB',       '骁龙8系芯片 5000mAh 长续航',   1999.00, 2499.00, 100, 328,  'https://placehold.co/300x300/E27474/white?text=X1', '<p>京造 X1 智能手机详情</p>',       'ON_SALE'),
+(102, 1, 11, '京造 X1 Pro 智能手机 12GB+512GB',  '旗舰影像 100W 快充',            3299.00, 3999.00, 50,  156,  'https://placehold.co/300x300/C81623/white?text=X1Pro', '<p>京造 X1 Pro 详情</p>',           'ON_SALE'),
+(103, 1, 12, '轻薄笔记本电脑 14英寸',            '2.8K 屏 1.2kg 金属机身',        4599.00, 5299.00, 30,  89,   'https://placehold.co/300x300/409EFF/white?text=Laptop', '<p>轻薄本详情</p>',                 'ON_SALE'),
+(104, 1, 13, '无线降噪耳机 Pro',                 '40dB 深度降噪 30 小时续航',      499.00,  699.00,  200, 512,  'https://placehold.co/300x300/2C3E50/white?text=Headphone', '<p>耳机详情</p>',                   'ON_SALE'),
+(105, 1, 21, '纯棉商务休闲衬衫',                 '免烫抗皱 四季款',               129.00,  199.00,  300, 1203, 'https://placehold.co/300x300/27AE60/white?text=Shirt', '<p>衬衫详情</p>',                   'ON_SALE'),
+(106, 1, 22, '法式连衣裙 收腰显瘦',              '春夏新款 雪纺面料',             239.00,  329.00,  150, 678,  'https://placehold.co/300x300/E91E63/white?text=Dress', '<p>连衣裙详情</p>',                 'ON_SALE'),
+(107, 1, 31, '每日坚果礼盒 30包',                '混合坚果 独立小包',             89.90,   129.00,  500, 2230, 'https://placehold.co/300x300/D4AC0D/white?text=Nuts', '<p>坚果详情</p>',                   'ON_SALE'),
+(108, 1, 32, '红富士苹果 5kg 装',                '脆甜多汁 产地直发',             49.90,   69.90,   400, 1890, 'https://placehold.co/300x300/E67E22/white?text=Apple', '<p>苹果详情</p>',                   'ON_SALE'),
+(109, 1, 41, '不粘炒锅 32cm',                    '少油烟 电磁炉通用',             159.00,  259.00,  200, 856,  'https://placehold.co/300x300/7F8C8D/white?text=Pan', '<p>炒锅详情</p>',                   'ON_SALE'),
+(110, 1, 42, '抽纸整箱 24包',                    '原生木浆 柔韧亲肤',             39.90,   59.90,   800, 3350, 'https://placehold.co/300x300/BDC3C7/black?text=Tissue', '<p>抽纸详情</p>',                   'ON_SALE'),
+(111, 1, 11, '待上架演示商品',                    '审核流程演示',                  99.00,   NULL,    10,  0,    'https://placehold.co/300x300/95A5A6/white?text=Pending', NULL,                               'PENDING_ON_SALE'),
+(112, 1, 11, '草稿演示商品',                      '商家草稿箱',                    199.00,  NULL,    10,  0,    'https://placehold.co/300x300/95A5A6/white?text=Draft', NULL,                               'DRAFT'),
+(113, 1, 11, '已下架演示商品',                    '下架状态演示',                  299.00,  NULL,    10,  45,   'https://placehold.co/300x300/95A5A6/white?text=OffShelf', NULL,                               'OFF_SALE');
 
 -- 商品多图
 INSERT INTO `product_images` (`product_id`, `image_url`, `sort_order`) VALUES
-(101, 'https://img.example.com/p101_1.jpg', 1),
-(101, 'https://img.example.com/p101_2.jpg', 2),
-(102, 'https://img.example.com/p102_1.jpg', 1),
-(104, 'https://img.example.com/p104_1.jpg', 1);
+(101, 'https://placehold.co/300x300/E27474/white?text=X1-Front', 1),
+(101, 'https://placehold.co/300x300/E27474/white?text=X1-Back', 2),
+(102, 'https://placehold.co/300x300/C81623/white?text=X1Pro-Front', 1),
+(104, 'https://placehold.co/300x300/2C3E50/white?text=HP-Front', 1);
 
 -- 5. 收货地址
 INSERT INTO `addresses` (`id`, `user_id`, `receiver`, `phone`, `province`, `city`, `district`, `detail`, `is_default`) VALUES
