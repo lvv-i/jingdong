@@ -44,3 +44,6 @@ backend/data/
 # Qoder workspace temp files
 .qoder/_tmp_*
 .qoder/backend_*.log
+
+# ngrok 凭据（本地私密文件，禁止提交）
+.qoder/ngrok-authtoken.txt

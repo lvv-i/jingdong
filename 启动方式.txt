@@ -1,4 +1,4 @@
-启动方式（更新：2026-08-30，含局域网访问）
+启动方式（更新：2026-08-30，含局域网访问与公网访问）
 
 方式一：一键启动（推荐，答辩用）
 双击根目录 start-all.bat，自动完成：防火墙放行 → MySQL → 后端 8080 → 用户网页端 5173 → 后台端 5174 → 移动端 H5 5175；按任意键全部停止。
@@ -41,5 +41,16 @@ MySQL 8：脚本会自动检查 D:\mysql-8.0.28-winx64 并拉起（3306）
    netsh advfirewall firewall add rule name=JDShop dir=in action=allow protocol=TCP localport=5173
    （5174/5175/8080 同理），或在"Windows Defender 防火墙 → 高级设置 → 入站规则"手动放行
 4. 公网（跨网络）访问需内网穿透（frp/ngrok），不在本项目范围
+
+方式四：公网访问（任何能上网的人都能打开，类似京东官网）
+公网网址：https://lvv-i.github.io/jingdong/（GitHub Pages 免费托管，网址永久有效）
+
+访问前需在本机运行两件事（后端 + ngrok 隧道，缺一不可）：
+① 后端：双击 start-all.bat 保持运行（或按方式二 ④ 单独启动后端）
+② ngrok 隧道：node d:\Desktop\jingdong\.qoder\start-ngrok.cjs
+（隧道公网地址固定为 https://blooming-bulgur-rifling.ngrok-free.dev，重启不变）
+
+完成后，任何人浏览器打开 https://lvv-i.github.io/jingdong/ 即可使用完整商城（浏览/注册/登录/下单均可）。
+改代码后重新发布网站：powershell -NoProfile -ExecutionPolicy Bypass -File .qoder\deploy-gh-pages.ps1
 
 测试账号（密码=账号名）：用户 user001/user002、商家 merchant001/merchant002、管理员 admin001

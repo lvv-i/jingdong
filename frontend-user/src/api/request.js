@@ -8,9 +8,17 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
+// 站点基础路径（vite base，如 GitHub Pages 部署时为 /jingdong/，本地开发为 /）
+const BASE = import.meta.env.BASE_URL || '/'
+
 const request = axios.create({
-  baseURL: '/api',
-  timeout: 10000
+  // 本地开发走 vite 代理 /api → 8080；公网部署用 VITE_API_BASE 指向后端公网地址
+  baseURL: (import.meta.env.VITE_API_BASE || '') + '/api',
+  timeout: 20000,
+  headers: {
+    // 绕过 ngrok 免费版浏览器警告页（本地开发无影响）
+    'ngrok-skip-browser-warning': 'true'
+  }
 })
 
 // 请求拦截器：注入 JWT（登录后所有请求携带 Authorization: Bearer <token>）
@@ -40,9 +48,9 @@ request.interceptors.response.use(
     if (res.code === 1002) {
       localStorage.removeItem('token')
       localStorage.removeItem('userInfo')
-      if (!window.location.pathname.startsWith('/login')) {
+      if (window.location.pathname !== BASE + 'login') {
         ElMessage.warning(res.message || '请先登录')
-        window.location.href = '/login'
+        window.location.href = BASE + 'login'
       }
       return Promise.reject(new Error(res.message || '未登录'))
     }

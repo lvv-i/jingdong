@@ -105,6 +105,7 @@
 - ✅ A/C：T1 3.2「修改资料后重新提交」语义完善闭环（2026-08-29：M-002b v1.2 可选请求体 {shopName?, categoryId?, description?}——携带字段先更新再重提，空 body/{} 向后兼容，ShopResubmitDTO 新建 + 3004 类目校验 + 审计 remark 区分；C 端 Shop.vue REJECTED 改“修改资料并重新提交”按钮 + 预填表单 + handleSave 分流（resubmit 带资料走 M-002b / edit 走 M-002）；T5 升版 v1.2；双端构建通过；MySQL 真实环境 16 步 E2E 全绿 + 中文写入 SQL 字节级验证；修复 shop2 双重编码历史数据恢复 seed 值）
 - ✅ D：构建复核（2026-08-29：mobile-app 高缺陷改动 `build:h5` 通过，未引入语法回归）
 - ✅ A/D：局域网访问支持（2026-08-30：三端 vite dev server host 0.0.0.0 + mobile-app H5 动态 baseURL（API 自动跟随访问域名）+ start-all.bat 防火墙放行 4 端口与局域网 IP 提示 + README 局域网小节 + 启动方式.txt 三方式；端到端验证 5173/5174/5175/8080 全通过）
+- ✅ A/D：公网网站部署（2026-08-30：用户网页版发布公网 `https://lvv-i.github.io/jingdong/`（GitHub Pages 免费托管，永久有效）+ 后端 API ngrok 固定域名隧道 `https://blooming-bulgur-rifling.ngrok-free.dev`；`frontend-user` 支持 `VITE_API_BASE`/`VITE_ROUTER_BASE` 构建参数 + axios 统一 `ngrok-skip-browser-warning` 头（绕过 ngrok 免费版警告页）+ 404.html SPA 回退（history 路由直链可用）；新增脚本 `.qoder/start-ngrok.cjs`（隧道启动，token 本地文件不入库）+ `.qoder/deploy-gh-pages.ps1`（一键重新发布）；README/启动方式.txt 新增公网方式；browser-use 端到端实测：首页分类/商品数据公网加载 + user001 公网登录成功（欢迎回来+购物车徽标））
 - ⬜ 文档补全与答辩材料准备（全员）
   - ✅ AI 交互记录归档：A/B/C/D 全部完成（`A6/B6/C6/D6-AI交互记录.md`，2026-08-29）
   - ✅ 演示截图补拍：D M3 联调截图 3 张（x9-index/x9-cart/x9-mine）+ C 后台截图 2 张（c6-admin-audit/c6-merchant-dashboard）+ B 联调截图 5 张（m3-*），共 10 张归档

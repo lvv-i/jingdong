@@ -59,8 +59,9 @@
 | A-Deploy | 答辩环境加固：一键启动脚本 + SPA 静态托管 | ✅ | `start-all.bat`（MySQL → 后端 jar → 用户端 5173 → 后台 5174 → 移动 H5 五步拉起 + 停止清理）+ `config/SpaFallbackController.java`（新建）+ `config/WebConfig.java`（静态资源映射）+ README 启动指南；jar 重建运行验证 | 2026-08-30 |
 | A-Report | 实验报告撰写与项目整合收尾 | ✅ | `实验报告-成员A与D.md`（按作业要求七部分：功能介绍/交互概要/系统设计/测试调试/使用示例截图/团队合作 git 提交截图 4 时间点/交互完整过程；2026-08-30 按用户要求移交桌面 d:\Desktop，仓库内不再保留）；收尾全量检查 + develop→main 合并双分支推送远端 | 2026-08-30 |
 | A-LAN | 局域网访问支持（三端 dev server host 0.0.0.0 + H5 动态 baseURL + 防火墙放行） | ✅ | 三端 `vite.config.js`（host: true）+ mobile-app `request.js`（H5 baseURL 自动跟随访问域名）+ `start-all.bat`（netsh 防火墙 4 规则 + 局域网 IP 提示）+ README/启动方式.txt；端到端验证全通过 | 2026-08-30 |
+| A-PUB | 公网网站部署（GitHub Pages + ngrok 固定域名隧道） | ✅ | 公网网址 `https://lvv-i.github.io/jingdong/`（GitHub Pages 免费托管）+ 后端隧道 `https://blooming-bulgur-rifling.ngrok-free.dev`；`frontend-user` 支持 `VITE_API_BASE`/`VITE_ROUTER_BASE` 环境变量 + `ngrok-skip-browser-warning` 头 + 404.html SPA 回退；脚本 `.qoder/start-ngrok.cjs` + `.qoder/deploy-gh-pages.ps1`；README/启动方式.txt 新增公网方式；browser-use 端到端实测（首页数据加载 + user001 公网登录成功） | 2026-08-30 |
 
-**A 第五阶段完成率：9 / 9（100%）✅（2026-08-30 全部闭环，含实验报告、局域网访问与整合收尾）**
+**A 第五阶段完成率：10 / 10（100%）✅（2026-08-30 全部闭环，含实验报告、局域网/公网访问与整合收尾）**
 
 ---
 

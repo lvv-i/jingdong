@@ -38,7 +38,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  // 站点基础路径：本地开发为 /；GitHub Pages 部署时设为 /jingdong/（构建时 VITE_ROUTER_BASE 传入）
+  history: createWebHistory(import.meta.env.VITE_ROUTER_BASE || '/'),
   routes
 })
 

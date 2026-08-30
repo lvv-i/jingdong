@@ -116,7 +116,20 @@ npm run dev:h5
    - 移动端 H5：`http://192.168.1.100:5175`（API 自动指向 `http://192.168.1.100:8080`，无需额外配置）
 3. 若无法访问：检查防火墙是否放行 5173/5174/5175/8080（需管理员权限执行 `netsh advfirewall firewall add rule name=JDShop dir=in action=allow protocol=TCP localport=5173`，或手动在“Windows Defender 防火墙 → 高级设置 → 入站规则”中添加）
 
-> 说明：以上为局域网方案。若需公网（跨网络）访问，需额外内网穿透（如 frp/ngrok），不在本项目范围内。
+> 说明：以上为局域网方案。公网访问方案见下一节「公网访问」。
+
+### 公网访问（已注册公开网址）
+
+商城网页版已发布到公网，任何能上网的人都可以打开（类似京东官网）：
+
+| 资源 | 公网地址 | 说明 |
+|---|---|---|
+| 用户网页版 | https://lvv-i.github.io/jingdong/ | GitHub Pages 免费托管，网址永久有效 |
+| 后端 API | https://blooming-bulgur-rifling.ngrok-free.dev | ngrok 免费隧道，需本机运行 `node .qoder/start-ngrok.cjs` |
+
+- 公网网站完整可用（注册/登录/下单），API 自动指向 ngrok 后端，无需额外配置
+- 重新发布网站（代码更新后）：`powershell -NoProfile -ExecutionPolicy Bypass -File .qoder\deploy-gh-pages.ps1`
+- 详细说明见根目录 `启动方式.txt` 方式四
 
 ### 构建生产版本
 
