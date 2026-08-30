@@ -7,8 +7,9 @@
  */
 import { getToken, goLogin } from "./auth";
 
-// 联调环境（D-02 约定）；真机联调可改局域网 IP 或走环境变量
-const BASE_URL = "http://localhost:8080";
+// 联调环境（D-02 约定）；支持环境变量 VITE_API_BASE 覆盖
+// 开发：默认 localhost:8080；生产/局域网：设置 VITE_API_BASE=http://192.168.x.x:8080
+const BASE_URL = import.meta.env.VITE_API_BASE || "http://localhost:8080";
 
 // T5 白名单接口（无需登录）：P-001~P-008
 const WHITELIST = [

@@ -51,4 +51,72 @@
 
 ## 快速开始
 
-各端独立工程后续接入此仓库，具体启动方式由各端负责人补充。
+### 环境要求
+
+| 依赖 | 版本 | 说明 |
+|---|---|---|
+| JDK | 17+ | 后端编译与运行 |
+| Maven | 3.9+ | 后端构建 |
+| Node.js | 18+ | 前端工程（含 npm） |
+| MySQL | 8.0+ | 数据库（可选，H2 内嵌模式也可运行） |
+
+### 一键启动（推荐）
+
+```bash
+# Windows：双击运行
+start-all.bat
+
+# 脚本自动启动：MySQL → 后端 8080 → 用户端 5173 → 后台端 5174 → 移动端 H5
+```
+
+### 分步启动
+
+```bash
+# 1. 数据库（二选一）
+#   方案 A：MySQL 8（真实环境）
+D:\mysql-8.0.28-winx64\bin\mysqld.exe
+#   方案 B：H2 内嵌（后端自动创建，无需单独启动）
+
+# 2. 后端（Spring Boot :8080）
+cd backend
+mvn spring-boot:run
+# 或 java -jar target/jd-shop-1.0.0.jar --spring.profiles.active=h2
+
+# 3. 用户网页端（Vue 3 :5173）
+cd frontend-user
+npm run dev
+
+# 4. 后台端（Vue 3 :5174，商家+管理员共用）
+cd admin-web
+npm run dev
+
+# 5. 移动端 H5（uni-app）
+cd mobile-app
+npm run dev:h5
+```
+
+### 访问地址
+
+| 端 | 地址 | 测试账号 |
+|---|---|---|
+| 用户网页端 | http://localhost:5173 | user001 / user001 |
+| 商家后台 | http://localhost:5174 | merchant001 / merchant001 |
+| 管理员后台 | http://localhost:5174 | admin001 / admin001 |
+| 后端 API | http://localhost:8080 | - |
+| 移动端 H5 | http://localhost:端口（见终端输出） | 同上 |
+
+### 构建生产版本
+
+```bash
+# 后端
+cd backend && mvn package -DskipTests
+
+# 用户网页端
+cd frontend-user && npm run build
+
+# 后台端
+cd admin-web && npm run build
+
+# 移动端 H5 + 微信小程序
+cd mobile-app && npm run build:h5 && npm run build:mp-weixin
+```
