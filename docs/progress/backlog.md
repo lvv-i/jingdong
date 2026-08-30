@@ -104,11 +104,12 @@
 - ✅ A/C：M-002b 真实环境 E2E 实测闭环（2026-08-29：MySQL 环境 merchant002 店铺2 全链路 9 步实测——PENDING_AUDIT 重提 1001 拦截 ✅、admin reject 200 ✅、REJECTED 重提 200 ✅、状态回 PENDING_AUDIT 且 auditReason 清空 ✅、重复重提 1001 拦截 ✅、终态恢复原状 ✅；实测发现并修复后端 resubmitShop auditReason 置空失效——MyBatis-Plus updateById NOT_NULL 策略跳过 null，改 LambdaUpdateWrapper 显式 set null）
 - ✅ A/C：T1 3.2「修改资料后重新提交」语义完善闭环（2026-08-29：M-002b v1.2 可选请求体 {shopName?, categoryId?, description?}——携带字段先更新再重提，空 body/{} 向后兼容，ShopResubmitDTO 新建 + 3004 类目校验 + 审计 remark 区分；C 端 Shop.vue REJECTED 改“修改资料并重新提交”按钮 + 预填表单 + handleSave 分流（resubmit 带资料走 M-002b / edit 走 M-002）；T5 升版 v1.2；双端构建通过；MySQL 真实环境 16 步 E2E 全绿 + 中文写入 SQL 字节级验证；修复 shop2 双重编码历史数据恢复 seed 值）
 - ✅ D：构建复核（2026-08-29：mobile-app 高缺陷改动 `build:h5` 通过，未引入语法回归）
+- ✅ A/D：局域网访问支持（2026-08-30：三端 vite dev server host 0.0.0.0 + mobile-app H5 动态 baseURL（API 自动跟随访问域名）+ start-all.bat 防火墙放行 4 端口与局域网 IP 提示 + README 局域网小节 + 启动方式.txt 三方式；端到端验证 5173/5174/5175/8080 全通过）
 - ⬜ 文档补全与答辩材料准备（全员）
   - ✅ AI 交互记录归档：A/B/C/D 全部完成（`A6/B6/C6/D6-AI交互记录.md`，2026-08-29）
   - ✅ 演示截图补拍：D M3 联调截图 3 张（x9-index/x9-cart/x9-mine）+ C 后台截图 2 张（c6-admin-audit/c6-merchant-dashboard）+ B 联调截图 5 张（m3-*），共 10 张归档
   - ✅ 小程序产物验收（D，2026-08-29）：`build:mp-weixin` 重新构建（含双兼容修复）+ 产物结构验证（app.json 17 页 + tabBar 4 项 + 组件/接口层齐全）；GUI 验收待微信开发者工具安装后导入 `dist/build/mp-weixin` 执行
-  - ✅ 实验报告完成（A/D，2026-08-30）：根目录《实验报告-成员A与D.md》按作业要求七部分撰写（功能介绍/交互概要/系统设计/测试调试/使用示例截图/团队合作 git 提交截图 4 时间点/交互完整过程），引用 m3-/x9- 截图 5 张 + 新渲染 git-log 截图 4 张；develop→main 合并双分支推送远端同步（49d6b0e）
+  - ✅ 实验报告完成（A/D，2026-08-30）：《实验报告-成员A与D.md》按作业要求七部分撰写（功能介绍/交互概要/系统设计/测试调试/使用示例截图/团队合作 git 提交截图 4 时间点/交互完整过程），引用 m3-/x9- 截图 5 张 + 新渲染 git-log 截图 4 张；develop→main 合并双分支推送远端同步（49d6b0e）；**按用户要求移交桌面 d:\Desktop（仓库内不再保留，启动方式.txt 同步更新）**
   - ⬜ 答辩材料（PPT/演示脚本走查）：M4 页面级走查轮补截图 + 全端回归按 X-08 用例清单执行 + 小程序 GUI 验收（待微信开发者工具）
 
 ## 更新约定

@@ -8,6 +8,8 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: 5174,
+    // 监听所有网卡（0.0.0.0），局域网内其他电脑可通过 http://本机IP:5174 访问
+    host: true,
     proxy: {
       '/api': {
         target: 'http://localhost:8080',

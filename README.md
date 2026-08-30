@@ -90,7 +90,7 @@ npm run dev
 cd admin-web
 npm run dev
 
-# 5. 移动端 H5（uni-app）
+# 5. 移动端 H5（uni-app，端口固定 5175）
 cd mobile-app
 npm run dev:h5
 ```
@@ -103,7 +103,20 @@ npm run dev:h5
 | 商家后台 | http://localhost:5174 | merchant001 / merchant001 |
 | 管理员后台 | http://localhost:5174 | admin001 / admin001 |
 | 后端 API | http://localhost:8080 | - |
-| 移动端 H5 | http://localhost:端口（见终端输出） | 同上 |
+| 移动端 H5 | http://localhost:5175 | 同上 |
+
+### 局域网访问（其他电脑访问）
+
+三端 dev server 与后端均监听 `0.0.0.0`，同一网络（WiFi/校园网）内的其他电脑可直接访问：
+
+1. 查本机 IP：`ipconfig` 中 IPv4 地址（如 `192.168.1.100`）
+2. 其他电脑浏览器访问（端口需防火墙放行，`start-all.bat` 已自动尝试添加规则）：
+   - 用户网页端：`http://192.168.1.100:5173`
+   - 商家/管理员后台：`http://192.168.1.100:5174`
+   - 移动端 H5：`http://192.168.1.100:5175`（API 自动指向 `http://192.168.1.100:8080`，无需额外配置）
+3. 若无法访问：检查防火墙是否放行 5173/5174/5175/8080（需管理员权限执行 `netsh advfirewall firewall add rule name=JDShop dir=in action=allow protocol=TCP localport=5173`，或手动在“Windows Defender 防火墙 → 高级设置 → 入站规则”中添加）
+
+> 说明：以上为局域网方案。若需公网（跨网络）访问，需额外内网穿透（如 frp/ngrok），不在本项目范围内。
 
 ### 构建生产版本
 

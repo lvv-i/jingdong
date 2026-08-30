@@ -8,8 +8,16 @@
 import { getToken, goLogin } from "./auth";
 
 // 联调环境（D-02 约定）；支持环境变量 VITE_API_BASE 覆盖
-// 开发：默认 localhost:8080；生产/局域网：设置 VITE_API_BASE=http://192.168.x.x:8080
-const BASE_URL = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+// 开发/局域网访问：
+//   - H5 浏览器端：自动取当前页面 hostname（如 http://192.168.x.x:5175 访问时，API 自动指向 http://192.168.x.x:8080）
+//   - 小程序/App 端：默认 localhost:8080，真机联调请改局域网 IP 或设置 VITE_API_BASE
+let DEFAULT_BASE = "http://localhost:8080";
+// #ifdef H5
+if (typeof window !== "undefined" && window.location && window.location.hostname) {
+	DEFAULT_BASE = `http://${window.location.hostname}:8080`;
+}
+// #endif
+const BASE_URL = import.meta.env.VITE_API_BASE || DEFAULT_BASE;
 
 // T5 白名单接口（无需登录）：P-001~P-008
 const WHITELIST = [

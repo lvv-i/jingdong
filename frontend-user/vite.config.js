@@ -13,6 +13,8 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // 监听所有网卡（0.0.0.0），局域网内其他电脑可通过 http://本机IP:5173 访问
+    host: true,
     // 开发代理：/api → 后端 8080（T5 契约统一前缀 /api）
     proxy: {
       '/api': {
