@@ -163,8 +163,8 @@ public class RefundServiceImpl implements RefundService {
         refund.setMerchantReply(reply);
         refundRequestMapper.updateById(refund);
         writeAuditLog("REFUND", refund.getId(), "AGREE", "商家同意退款：" + reply);
-        sendNotice(refund.getUserId(), "退款同意",
-                "您的退款单 " + refund.getRefundNo() + " 商家已同意，退款将原路退回");
+        // M-013 同意后系统自动退款到账：MERCHANT_AGREED → REFUNDED（T1 状态机"系统退款"；写 payment_records REFUND）
+        completeRefund(refund);
     }
 
     @Override
@@ -201,25 +201,40 @@ public class RefundServiceImpl implements RefundService {
         }
         boolean agree = Boolean.TRUE.equals(dto.getAgree());
         refund.setAdminResult(dto.getAdminResult());
-        refund.setStatus(agree ? RefundStatus.REFUNDED.name() : RefundStatus.CLOSED.name());
+        if (agree) {
+            completeRefund(refund);
+            writeAuditLog("REFUND", refund.getId(), "HANDLE_REFUND", "同意退款：" + dto.getAdminResult());
+        } else {
+            refund.setStatus(RefundStatus.CLOSED.name());
+            refundRequestMapper.updateById(refund);
+            writeAuditLog("REFUND", refund.getId(), "HANDLE_REFUND", "驳回退款：" + dto.getAdminResult());
+            sendNotice(refund.getUserId(), "退款关闭",
+                    "您的退款单 " + refund.getRefundNo() + " 平台裁决：" + dto.getAdminResult());
+        }
+    }
+
+    /** 系统退款到账：REFUNDED + 写 payment_records(REFUND/SUCCESS) + 审计 + 通知
+     * 供 M-013 商家同意自动退款 / A-015 管理员 agree 裁决复用（T1"MERCHANT_AGREED→REFUNDED（系统退款）"） */
+    private void completeRefund(RefundRequest refund) {
+        refund.setStatus(RefundStatus.REFUNDED.name());
         refundRequestMapper.updateById(refund);
 
-        // agree=true 写退款流水（T5 A-015：payment_records(REFUND)）
-        if (agree) {
-            PaymentRecord record = new PaymentRecord();
-            record.setPaymentNo(IdGenerator.paymentNo());
-            record.setOrderId(refund.getOrderId());
-            record.setUserId(refund.getUserId());
-            record.setRefundId(refund.getId());
-            record.setAmount(refund.getRefundAmount());
-            record.setType("REFUND");
-            record.setStatus("SUCCESS");
-            paymentRecordMapper.insert(record);
+        // 写退款流水（payment_records，type=REFUND）
+        PaymentRecord record = new PaymentRecord();
+        record.setPaymentNo(IdGenerator.paymentNo());
+        record.setOrderId(refund.getOrderId());
+        record.setUserId(refund.getUserId());
+        record.setRefundId(refund.getId());
+        record.setAmount(refund.getRefundAmount());
+        record.setType("REFUND");
+        record.setStatus("SUCCESS");
+        paymentRecordMapper.insert(record);
+
+        if (!StringUtils.hasText(refund.getAdminResult())) {
+            writeAuditLog("REFUND", refund.getId(), "AUTO_REFUND", "商家同意后系统自动退款");
         }
-        writeAuditLog("REFUND", refund.getId(), "HANDLE_REFUND",
-                (agree ? "同意退款：" : "驳回退款：") + dto.getAdminResult());
-        sendNotice(refund.getUserId(), agree ? "退款成功" : "退款关闭",
-                "您的退款单 " + refund.getRefundNo() + " 平台裁决：" + dto.getAdminResult());
+        sendNotice(refund.getUserId(), "退款成功",
+                "您的退款单 " + refund.getRefundNo() + " 已退款，金额将原路退回");
     }
 
     // ---------- 私有工具 ----------
